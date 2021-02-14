@@ -1,1 +1,5 @@
 @import "~antd/dist/antd.min.css";
+
+body, html, #root, .wrapper {
+  height: 100%;
+}
