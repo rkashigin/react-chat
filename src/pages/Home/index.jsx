@@ -21,6 +21,7 @@ const Home = () => {
         text={"Hello!"}
         date={new Date() - 100000}
         isMe={true}
+        isReaded={true}
       />
     </section>
   );

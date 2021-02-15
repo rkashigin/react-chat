@@ -1,9 +1,14 @@
 @import "~styles/variables";
 
 .message {
-  display: flex;
-  max-width: 440px;
-  margin-bottom: 15px;
+  $self: &;
+
+  &__content {
+    display: flex;
+    max-width: 440px;
+    margin-bottom: 15px;
+    position: relative;
+  }
 
   &__avatar {
     display: flex;
@@ -34,6 +39,48 @@
   &__text {
     color: #fff;
     line-height: 20px;
+  }
+
+  &__icon-readed {
+    position: absolute;
+    bottom: 22px;
+    left: -25px;
+
+    &--no {
+      left: -20px;
+    }
+  }
+
+  &--isme {
+    display: flex;
+    flex-direction: row-reverse;
+
+    #{$self}__content {
+      margin-bottom: 15px;
+      flex-direction: row-reverse;
+    }
+
+    #{$self}__avatar {
+      img {
+        margin-right: 0;
+        margin-left: 13px;
+      }
+    }
+
+    #{$self}__info {
+      text-align: right;
+    }
+
+    #{$self}__bubble {
+      background: #fff;
+      border: 1px solid #ececec;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, .03);
+      border-radius: 12px 12px 0 12px;
+
+      #{$self}__text {
+        color: $black;
+      }
+    }
   }
 
 }
