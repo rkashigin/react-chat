@@ -8,7 +8,7 @@ import { LoginForm } from "./modules";
 function App() {
   return (
     <div className="wrapper">
-      <Route exact path={["/", "/signin"]} component={Auth} />
+      <Route exact path={["/", "/signin", "/signup"]} component={Auth} />
       <Route exact path={"/im"} component={Home} />
     </div>
   );
