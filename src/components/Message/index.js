@@ -8,7 +8,7 @@ import noReadedSvg from "../../assets/img/noreaded.svg";
 
 import "./Message.scss";
 
-const Message = ({ avatar, user, text, date, isMe, isReaded }) => (
+const Message = ({ avatar, user, text, date, isMe, isReaded, attachments }) => (
   <div
     className={classNames("message", {
       "message--isme": isMe,
@@ -36,6 +36,16 @@ const Message = ({ avatar, user, text, date, isMe, isReaded }) => (
         <div className={"message__bubble"}>
           <p className={"message__text"}>{text}</p>
         </div>
+        <div className="message__attachments">
+          {attachments &&
+            attachments.map((item) => {
+              return (
+                <div className="message__attachments-item">
+                  <img src={item.url} alt={item.fileName} />
+                </div>
+              );
+            })}
+        </div>
         <span className={"message__date"}>
           {formatDistanceToNow(date, { addSuffix: true })}
         </span>
@@ -53,6 +63,7 @@ Message.protoTypes = {
   text: PropTypes.string,
   date: PropTypes.string,
   user: PropTypes.object,
+  attachments: PropTypes.array,
 };
 
 export default Message;
