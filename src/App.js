@@ -3,7 +3,6 @@ import { Route } from "react-router-dom";
 
 import { Auth } from "./pages";
 import { Home } from "./pages";
-import { LoginForm } from "./modules";
 
 function App() {
   return (

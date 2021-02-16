@@ -14,8 +14,6 @@ const LoginForm = (props) => {
     handleChange,
     handleBlur,
     handleSubmit,
-    dirty,
-    isValid,
   } = props;
 
   return (
