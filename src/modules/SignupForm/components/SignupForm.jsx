@@ -10,6 +10,8 @@ import {
 import { Link } from "react-router-dom";
 import { Block, Button } from "../../../components";
 
+import { validateField } from "utils/helpers";
+
 const SignupForm = (props) => {
   const success = false;
   const {
@@ -33,9 +35,7 @@ const SignupForm = (props) => {
         {!success ? (
           <Form onSubmit={handleSubmit} className="login-form">
             <Form.Item
-              validateStatus={
-                !touched.email ? "" : errors.email ? "error" : "success"
-              }
+              validateStatus={validateField("email", touched, errors)}
               hasFeedback
               help={!touched.email ? null : errors.email}
             >
@@ -57,9 +57,7 @@ const SignupForm = (props) => {
               />
             </Form.Item>
             <Form.Item
-              validateStatus={
-                !touched.password ? "" : errors.password ? "error" : "success"
-              }
+              validateStatus={validateField("password", touched, errors)}
               hasFeedback
               help={!touched.password ? null : errors.password}
             >
@@ -74,12 +72,20 @@ const SignupForm = (props) => {
                 onBlur={handleBlur}
               />
             </Form.Item>
-            <Form.Item>
+            <Form.Item
+              validateStatus={validateField("password2", touched, errors)}
+              hasFeedback
+              help={!touched.password2 ? null : errors.password2}
+            >
               <Input
+                id={"password2"}
                 prefix={<ReloadOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Confirm your password"
                 size={"large"}
+                value={values.password2}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </Form.Item>
             <Form.Item>

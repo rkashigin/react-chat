@@ -1,63 +1,80 @@
 import React from "react";
 import { Form, Input } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { Block, Button } from "../../../components";
+import { Block, Button } from "components";
 
-class LoginForm extends React.Component {
-  onFinish = (values) => {
-    console.log("Received values of form ", values);
-  };
+import { validateField } from "utils/helpers";
 
-  render() {
-    return (
-      <div>
-        <div className="auth__top">
-          <h2>Sign In</h2>
-          <p>Now you can sign in into your account</p>
-        </div>
-        <Block>
-          <Form
-            name="normal_login"
-            className="login-form"
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={this.onFinish}
-          >
-            <Form.Item name="username">
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username"
-                size={"large"}
-              />
-            </Form.Item>
-            <Form.Item name="password">
-              <Input
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Password"
-                size={"large"}
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                size={"large"}
-              >
-                Sign in
-              </Button>
-            </Form.Item>
-            <Link className={"auth__signup-link"} to="/signup">
-              Sign up
-            </Link>
-          </Form>
-        </Block>
+const LoginForm = (props) => {
+  const {
+    values,
+    touched,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    dirty,
+    isValid,
+  } = props;
+
+  return (
+    <div>
+      <div className="auth__top">
+        <h2>Sign In</h2>
+        <p>Now you can sign in into your account</p>
       </div>
-    );
-  }
-}
+      <Block>
+        <Form onSubmit={handleSubmit} className="login-form">
+          <Form.Item
+            validateStatus={validateField("email", touched, errors)}
+            hasFeedback
+            help={!touched.email ? null : errors.email}
+          >
+            <Input
+              id={"email"}
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder="Enter your Email"
+              size={"large"}
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </Form.Item>
+          <Form.Item
+            validateStatus={validateField("password", touched, errors)}
+            hasFeedback
+            help={!touched.password ? null : errors.password}
+          >
+            <Input
+              id={"password"}
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Enter your password"
+              size={"large"}
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              onClick={handleSubmit}
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+              size={"large"}
+            >
+              Sign in
+            </Button>
+          </Form.Item>
+          <Link className={"auth__signup-link"} to="/signup">
+            Sign up
+          </Link>
+        </Form>
+      </Block>
+    </div>
+  );
+};
 
 export default LoginForm;
