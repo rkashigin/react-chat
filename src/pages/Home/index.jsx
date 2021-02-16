@@ -43,6 +43,17 @@ const Home = () => {
         avatar={
           "https://sun3-10.userapi.com/vIhQCAnSp4ltHQl_41qY-BER1VsUVmqeSA2aFQ/cOzJ_UEvsDE.jpg"
         }
+        attachments={[
+          {
+            fileName: "image1.jpg",
+            url: "https://source.unsplash.com/random/100x100?i=1",
+          },
+        ]}
+      />
+      <Message
+        avatar={
+          "https://sun3-10.userapi.com/vIhQCAnSp4ltHQl_41qY-BER1VsUVmqeSA2aFQ/cOzJ_UEvsDE.jpg"
+        }
         isTyping
       />
     </section>

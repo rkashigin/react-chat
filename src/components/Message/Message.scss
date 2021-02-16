@@ -19,7 +19,7 @@
       width: 33px;
       height: 33px;
       margin-right: 13px;
-      margin-bottom: 23px;
+      margin-bottom: 5px;
     }
   }
 
@@ -99,12 +99,23 @@
     }
   }
 
+  &--image {
+    #{$self}__attachments {
+      &-item {
+        img {
+          width: 150px;
+          height: 150px;
+        }
+      }
+    }
+  }
+
   &--is-typing {
 
     #{$self}__bubble {
       background-color: $message-typing-blue;
       box-shadow: 0 5px 5px rgba(54, 116, 255, 0.04);
-      padding: 15px 20px;
+      padding: 15px 18px;
     }
   }
 
@@ -130,6 +141,7 @@
       }
     }
   }
+
 }
 
 @keyframes typingAnimation{
