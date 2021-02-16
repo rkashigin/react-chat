@@ -14,6 +14,8 @@ const LoginForm = (props) => {
     handleChange,
     handleBlur,
     handleSubmit,
+    isSubmitting,
+    isValid,
   } = props;
 
   return (
@@ -56,13 +58,8 @@ const LoginForm = (props) => {
             />
           </Form.Item>
           <Form.Item>
-            <Button
-              onClick={handleSubmit}
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              size={"large"}
-            >
+            {isSubmitting && !isValid && <span>Ошибка!</span>}
+            <Button onClick={handleSubmit} type="primary" size={"large"}>
               Sign in
             </Button>
           </Form.Item>
