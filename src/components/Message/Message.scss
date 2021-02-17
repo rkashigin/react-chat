@@ -26,7 +26,7 @@
   &__bubble {
     background: $blue;
     box-shadow: 0 5px 5px rgba(54, 116, 255, 0.2);
-    border-radius: 12px 12px 12px 0px;
+    border-radius: 12px 12px 12px 0;
     padding: 15px;
     margin-bottom: 8px;
   }
@@ -64,6 +64,57 @@
 
     &--no {
       left: -20px;
+    }
+  }
+
+  &--is-audio {
+    audio {
+      display: none;
+    }
+
+    #{$self}__bubble {
+      width: 280px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #{$self}__audio {
+      &-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      &-btn {
+        button {
+          cursor: pointer;
+          border: 0;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: #0F3997;
+
+          img {
+            height: 15px;
+          }
+        }
+      }
+
+      &-duration {
+        color: #fff;
+        font-weight: 500;
+        opacity: 0.5;
+        font-size: 12px;
+      }
+
+      &-progress {
+        left: 0;
+        top: 0;
+        position: absolute;
+        background-color: #418fff;
+        height: 100%;
+      }
     }
   }
 

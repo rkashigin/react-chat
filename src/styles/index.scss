@@ -1,6 +1,10 @@
 @import "~antd/dist/antd.min.css";
 @import "~reset-css";
 
+* {
+  outline: none;
+}
+
 body, html, #root, .wrapper {
   height: 100%;
   color: #202020;
@@ -11,3 +15,4 @@ body, html, #root, .wrapper {
 .site-form-item-icon {
   opacity: 0.3;
 }
+

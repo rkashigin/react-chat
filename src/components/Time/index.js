@@ -5,9 +5,9 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 const Time = ({ date }) => (
   <>{formatDistanceToNow(date, { addSuffix: true })}</>
 );
-
-Time.propTypes = {
-  date: PropTypes.string,
-};
+//
+// Time.propTypes = {
+//   date: PropTypes.date,
+// };
 
 export default Time;

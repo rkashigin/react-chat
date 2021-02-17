@@ -8,13 +8,7 @@ import { DialogItem } from "../";
 const Dialogs = ({ items, userId }) => (
   <div className={"dialogs"}>
     {orderBy(items, ["created_at"], ["desc"]).map((item) => (
-      <DialogItem
-        key={item._id}
-        user={item.user}
-        message={item}
-        unreaded={0}
-        isMe={item.user._id === userId}
-      />
+      <DialogItem key={item._id} isMe={item.user._id === userId} {...item} />
     ))}
   </div>
 );

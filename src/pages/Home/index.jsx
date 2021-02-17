@@ -13,7 +13,7 @@ const Home = () => {
           {
             _id: Math.random() * 120,
             text: "Зачем я тут зарегистрировался",
-            created_at: new Date("2021-02-16"),
+            created_at: new Date("2021-02-15"),
             user: {
               _id: 1,
               fullName: "Фёдор Достоевский",
@@ -24,7 +24,7 @@ const Home = () => {
           {
             _id: Math.random() * 120,
             text: "Привет, как у тебя дела вообще?",
-            created_at: new Date("2021-02-17 10:46"),
+            created_at: new Date("2021-02-16"),
             user: {
               _id: 1,
               fullName: "Адольф Гитлер",
@@ -34,6 +34,16 @@ const Home = () => {
           },
         ]}
       />
+      <Message
+        avatar={
+          "https://sun3-10.userapi.com/vIhQCAnSp4ltHQl_41qY-BER1VsUVmqeSA2aFQ/cOzJ_UEvsDE.jpg"
+        }
+        date={new Date("2021-02-15")}
+        audio={
+          "https://notificationsounds.com/storage/sounds/file-de_vuvuzela-power-down.mp3"
+        }
+      />
+
       {/*<Message*/}
       {/*  avatar={*/}
       {/*    "https://sun3-10.userapi.com/vIhQCAnSp4ltHQl_41qY-BER1VsUVmqeSA2aFQ/cOzJ_UEvsDE.jpg"*/}
