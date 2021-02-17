@@ -3,7 +3,7 @@ import classNames from "classnames";
 import format from "date-fns/format";
 import isToday from "date-fns/isToday";
 
-import { IconReaded } from "../";
+import { IconReaded, Avatar } from "../";
 
 import "./DialogItem.scss";
 
@@ -15,21 +15,15 @@ const getMessageTime = (created_at) => {
   }
 };
 
-const getAvatar = (avatar) => {
-  if (avatar) {
-    return <img src={avatar} alt="" />;
-  } else {
-    // generate avatar
-  }
-};
-
 const DialogItem = ({ user, text, created_at, unreaded, isMe }) => (
   <div
     className={classNames("dialogs__item", {
       "dialogs__item--online": user.isOnline,
     })}
   >
-    <div className="dialogs__item-avatar">{getAvatar(user.avatar)}</div>
+    <div className="dialogs__item-avatar">
+      <Avatar user={user} />
+    </div>
     <div className="dialogs__item-info">
       <div className="dialogs__item-info-top">
         <b>{user.fullName}</b>
