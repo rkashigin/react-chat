@@ -1,64 +1,39 @@
 import React from "react";
 
-import { Message, DialogItem } from "components";
+import { Message, Dialogs } from "components";
 
 import "./Home.scss";
 
 const Home = () => {
   return (
     <section className={"home"}>
-      <div className={"dialogs"}>
-        <DialogItem
-          user={{
-            fullName: "Фёдор Достоевский",
-            isOnline: true,
-          }}
-          unreaded={150}
-        />
-        <DialogItem
-          user={{
-            fullName: "Фёдор Достоевский",
-            isOnline: true,
-          }}
-          unreaded={0}
-        />
-        <DialogItem
-          user={{
-            fullName: "Фёдор Достоевский",
-            isOnline: false,
-          }}
-          unreaded={10}
-        />
-        <DialogItem
-          user={{
-            fullName: "Фёдор Достоевский",
-            isOnline: false,
-          }}
-          unreaded={5}
-        />
-        <DialogItem
-          user={{
-            fullName: "Фёдор Достоевский",
-            isOnline: true,
-          }}
-          unreaded={0}
-        />
-      </div>
-      {/*<Dialogs*/}
-      {/*  items={[*/}
-      {/*    {*/}
-      {/*      user: {*/}
-      {/*        fullName: "Фёдор Достоевский",*/}
-      {/*        avatar: null,*/}
-      {/*      },*/}
-      {/*      message: {*/}
-      {/*        text: "Зачем я тут зарегистрировался",*/}
-      {/*        isReaded: false,*/}
-      {/*        created_at: new Date(),*/}
-      {/*      },*/}
-      {/*    },*/}
-      {/*  ]}*/}
-      {/*/>*/}
+      <Dialogs
+        userId={0}
+        items={[
+          {
+            _id: Math.random() * 120,
+            text: "Зачем я тут зарегистрировался",
+            created_at: new Date("2021-02-16"),
+            user: {
+              _id: 1,
+              fullName: "Фёдор Достоевский",
+              avatar:
+                "https://images.gr-assets.com/authors/1516020610p8/16321565.jpg",
+            },
+          },
+          {
+            _id: Math.random() * 120,
+            text: "Привет, как у тебя дела вообще?",
+            created_at: new Date("2021-02-17 10:46"),
+            user: {
+              _id: 1,
+              fullName: "Адольф Гитлер",
+              avatar:
+                "https://yandex-images.naydex.net/Q5ksr1214/47185bsiW/4SD0lf6GGcXK_kXStOJSJ9I-k-wL2ByMRuV1jSFf34WIPt2a6me75EV6aC-5Wb9s4KX57f8KFMDt-vbQyl-0xvxg8Oy21iSw7r8d98Wevs83giME5iydbMZMZOkdQpvh9GPpYgYutn1sE1FK6FEjEdUdMHmCe_nxobe39Fqn_ZZdtTFxunoAQT4zwWYcwvYng9KnnD4kXaDqnCDhgXJPWHw3BfafEpLtlNclXmRpR01RVbz1RjdV9SnLs1yCM5W2-Yk9tbZWJDXGszmq9Bbm8z9aJyhO7AlISjAc0WVqx8T8t-U6m-Ju9RRnkcK8URdldX3U7SJHfX0B-59YnvtxStGFlf2G-kwpFr8t0hAecitrHnOYUth51DYgJLV5dgMsbCPVxu9qduHwr_GCvOkjqa05eF1u8xnNEWfPHNLH5Rr5BZVtJh4EbcqnxeKECuq_p2KX7NJIMaxeaFSFgeYLsFQvrSqzjp6BeDtZwsjRp1k5lVS1TneF8V2Dhxwa59F64SnRJTp6wO2yy3VuJG4ia3M2s6CC7IEogtDEMfUKXygQ760ms_aaXRDnPe50PRe5ud3QMYL76YFhO2OoFjuR7gnJHRmeZnDZji95Lmh-_vMjEqdA5kTdyLrMrGEBwhco7DtlOluiqvno--0WKKHzHYFt9OVCm50pnSfjCBIDwe7pPWX9bvoEwc5L5V7Qav53a5a33J4o3WQKYBSJcd6fwNif4aYT8qIJ7DeZxsyZ8yXd4Vhdrhe99T3D60weuyXOpUGltYIWyEGquy1mlHp2ayMy6_TyXO2w3thANUG60yD0j_XOc3LCdXgPXQ4svX9pdXHEpWaf6S0xA_NkAufZPg0dZQmeNrDt0sMp7hRmHlfzpneo8vB9UM4sBNXpsjugrJMJmmN-Oh00Y_WetBn_fQlBSBVG2zlxkSe3nEpXbW4Fiam55hasyZq3VXYcihb_EzoDRP7IgeyGnFDB-Q4c",
+            },
+          },
+        ]}
+      />
       {/*<Message*/}
       {/*  avatar={*/}
       {/*    "https://sun3-10.userapi.com/vIhQCAnSp4ltHQl_41qY-BER1VsUVmqeSA2aFQ/cOzJ_UEvsDE.jpg"*/}
