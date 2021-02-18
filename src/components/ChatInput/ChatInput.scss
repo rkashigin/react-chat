@@ -1,0 +1,34 @@
+@import "~styles/variables";
+
+.chat-input {
+  display: flex;
+  margin: 20px;
+  position: relative;
+  align-items: center;
+
+  .ant-btn-circle {
+    span.anticon {
+      cursor: pointer;
+    }
+  }
+
+  &__smile-btn {
+    margin-right: 15px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    width: 80px;
+    margin-left: 15px;
+  }
+
+  input {
+    padding: 6px 11px 8px;
+    font-size: 14px;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}

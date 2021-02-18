@@ -1,5 +1,7 @@
-@import "~antd/dist/antd.min.css";
 @import "~reset-css";
+@import "~antd/dist/antd.min.css";
+
+@import "layouts/chat";
 
 * {
   outline: none;
@@ -12,7 +14,31 @@ body, html, #root, .wrapper {
   font-size: 14px;
 }
 
+body {
+  background-color: #f4f7fd;
+}
+
 .site-form-item-icon {
   opacity: 0.3;
+}
+
+span.anticon {
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.ant-btn-circle {
+  opacity: 0.4;
+  border: 0;
+  box-shadow: none;
+  color: #202020 !important;
+
+  &:after {
+    display: none;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
 }
 

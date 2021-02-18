@@ -10,7 +10,7 @@ export default (hash) => {
   const [r, g, b] = hash.substr(0, 3).split("").map(getCorrectIndexOfChar);
 
   return {
-    color: tinycolor({ r, g, b }).lighten(20).toHexString(),
-    colorLighten: tinycolor({ r, g, b }).lighten(40).toHexString(),
+    color: tinycolor({ r, g, b }).lighten(10).saturate(10).toHexString(),
+    colorLighten: tinycolor({ r, g, b }).lighten(30).saturate(30).toHexString(),
   };
 };
