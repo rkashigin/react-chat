@@ -1,6 +1,21 @@
 @import "~styles/variables";
 
 .dialogs {
+  &__search {
+    padding: 2px 20px 20px 20px;
+
+    .ant-input, .ant-btn  {
+      background-color: #f7f8f9;
+      border: 0;
+      height: 38px;
+      padding: 4px 11px 6px;
+
+      span.anticon {
+        font-size: 16px;
+      }
+    }
+  }
+
   &__item {
     $item: &;
 

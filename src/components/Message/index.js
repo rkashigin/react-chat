@@ -135,9 +135,9 @@ const Message = ({
 
           {attachments && (
             <div className="message__attachments">
-              {attachments.map((item) => {
+              {attachments.map((item, index) => {
                 return (
-                  <div className="message__attachments-item">
+                  <div key={index} className="message__attachments-item">
                     <img src={item.url} alt={item.fileName} />
                   </div>
                 );

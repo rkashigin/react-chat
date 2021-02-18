@@ -33,17 +33,6 @@
       }
     }
 
-    &-search {
-      padding: 0 20px 20px 20px;
-
-      .ant-input, .ant-btn  {
-        background-color: #f7f8f9;
-        border: 0;
-        height: 38px;
-        padding: 4px 11px 6px;
-      }
-    }
-
     &-dialogs {
       height: calc(100% - 136px);
 
@@ -66,6 +55,14 @@
 
   &__dialog {
     flex: 1;
+    position: relative;
+
+    .ant-empty {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
 
     &-header {
       display: flex;
