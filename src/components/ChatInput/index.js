@@ -7,16 +7,31 @@ import {
 } from "@ant-design/icons";
 import { Input, Button } from "antd";
 import { UploadField } from "@navjobs/upload";
+import { Picker } from "emoji-mart";
 
 import "./ChatInput.scss";
 
 const ChatInput = () => {
   const [value, setValue] = React.useState("");
+  const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
+
+  const toggleEmojiPicker = () => {
+    setEmojiPickerVisible(!emojiPickerVisible);
+  };
 
   return (
     <div className="chat-input">
       <div className="chat-input__smile-btn">
-        <Button shape="circle" icon={<SmileOutlined />} />
+        {emojiPickerVisible && (
+          <div className="chat-input__emoji-picker">
+            <Picker set="apple" />
+          </div>
+        )}
+        <Button
+          shape="circle"
+          icon={<SmileOutlined />}
+          onClick={toggleEmojiPicker}
+        />
       </div>
       <Input
         onChange={(e) => setValue(e.target.value)}

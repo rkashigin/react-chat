@@ -12,6 +12,13 @@
     }
   }
 
+  &__emoji-picker {
+    position: absolute;
+    bottom: 45px;
+    left: 13px;
+    z-index: 1;
+  }
+
   &__smile-btn {
     margin-right: 15px;
   }
