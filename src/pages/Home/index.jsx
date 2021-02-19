@@ -7,9 +7,8 @@ import {
 } from "@ant-design/icons";
 import { Input, Button } from "antd";
 
-import { Messages, Status, ChatInput } from "components";
-import { Dialogs } from "containers";
-import dialogsJSON from "dialogs.json";
+import { Status, ChatInput } from "components";
+import { Dialogs, Messages } from "containers";
 
 import "./Home.scss";
 
@@ -26,7 +25,7 @@ const Home = () => {
             <Button shape="circle" icon={<FormOutlined />} />
           </div>
           <div className="chat__sidebar-dialogs">
-            <Dialogs userId={0} items={dialogsJSON} />
+            <Dialogs userId={0} />
           </div>
         </div>
         <div className="chat__dialog">

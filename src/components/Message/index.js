@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { Time, IconReaded } from "../";
+import { Time, IconReaded, Avatar } from "../";
 
 import { convertCurrentTime } from "utils/helpers";
 
@@ -116,7 +116,7 @@ const Message = ({
       <div className={"message__content"}>
         <IconReaded isMe={isMe} isReaded={isReaded} />
         <div className={"message__avatar"}>
-          <img src={avatar} alt={`Avatar ${user.fullname}`} />
+          <Avatar user={user} />
         </div>
         <div className={"message__info"}>
           {(audio || text || isTyping) && (
