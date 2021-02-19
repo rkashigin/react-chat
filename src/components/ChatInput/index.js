@@ -6,6 +6,7 @@ import {
   SendOutlined,
 } from "@ant-design/icons";
 import { Input, Button } from "antd";
+import { UploadField } from "@navjobs/upload";
 
 import "./ChatInput.scss";
 
@@ -23,7 +24,20 @@ const ChatInput = () => {
         size="large"
       />
       <div className="chat-input__actions">
-        <Button shape="circle" icon={<CameraOutlined />} />
+        <UploadField
+          onFiles={(files) => {
+            console.log(files);
+          }}
+          containerProps={{
+            className: "chat-input__actions-upload-btn",
+          }}
+          uploadProps={{
+            accept: ".jpg,.jpeg.png,.gif,.bmp",
+            multiple: true,
+          }}
+        >
+          <Button shape="circle" icon={<CameraOutlined />} />
+        </UploadField>
         {value ? (
           <Button shape="circle" icon={<SendOutlined />} />
         ) : (
