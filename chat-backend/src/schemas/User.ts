@@ -1,12 +1,27 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import validator from "validator";
 
 const UserSchema = new Schema(
   {
-    email: String,
+    email: {
+      type: String,
+      required: "Email address is required",
+      validate: [validator.isEmail, "Invalid email address"],
+      unique: true,
+    },
+    fullName: {
+      type: String,
+      required: "Fullname is required",
+    },
+    password: {
+      type: String,
+      required: "Password is required",
+    },
+    confirmed: {
+      type: Boolean,
+      default: false,
+    },
     avatar: String,
-    fullName: String,
-    password: String,
-    confirmed: Boolean,
     confirm_hash: String,
     last_seen: Date,
   },
