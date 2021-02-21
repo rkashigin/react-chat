@@ -26,6 +26,7 @@ app.delete("/user/:id", User.delete);
 app.post("/user/create", User.create);
 
 app.get("/dialogs/:id", Dialog.index);
+app.delete("/dialogs/:id", Dialog.delete);
 app.post("/dialogs", Dialog.create);
 
 app.listen(3000, function () {
