@@ -4,12 +4,12 @@ export interface IDialog extends Document {
   partner: {
     type: Schema.Types.ObjectId;
     ref: string;
-    require: true;
+    required: true;
   };
   author: {
     type: Schema.Types.ObjectId;
     ref: string;
-    require: true;
+    required: true;
   };
   lastMessage: {
     type: Schema.Types.ObjectId;
@@ -19,8 +19,8 @@ export interface IDialog extends Document {
 
 const DialogSchema = new Schema(
   {
-    partner: { type: Schema.Types.ObjectId, ref: "User" },
     author: { type: Schema.Types.ObjectId, ref: "User" },
+    partner: { type: Schema.Types.ObjectId, ref: "User" },
     lastMessage: { type: Schema.Types.ObjectId, ref: "Message" },
   },
   {

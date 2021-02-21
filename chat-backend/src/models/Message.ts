@@ -1,33 +1,39 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IDialog extends Document {
-  partner: {
-    type: Schema.Types.ObjectId;
-    ref: string;
-    require: true;
+export interface IMessage extends Document {
+  text: {
+    type: String;
+    required: true;
   };
-  author: {
+  dialog: {
     type: Schema.Types.ObjectId;
     ref: string;
-    require: true;
+    required: true;
   };
-  lastMessage: {
+  user: {
     type: Schema.Types.ObjectId;
     ref: string;
+    required: true;
+  };
+  unread: {
+    type: boolean;
+    default: false;
   };
 }
 
-const DialogSchema = new Schema(
+//TODO: Add attachments field
+const MessageSchema = new Schema(
   {
-    partner: { type: Schema.Types.ObjectId, ref: "User" },
-    author: { type: Schema.Types.ObjectId, ref: "User" },
-    lastMessage: { type: Schema.Types.ObjectId, ref: "Message" },
+    text: { type: String, required: Boolean },
+    dialog: { type: Schema.Types.ObjectId, ref: "Dialog", required: true },
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    unread: { type: Boolean, default: false },
   },
   {
     timestamps: true,
   }
 );
 
-const DialogModel = mongoose.model<IDialog>("Dialog", DialogSchema);
+const MessageModel = mongoose.model<IMessage>("Message", MessageSchema);
 
-export default DialogModel;
+export default MessageModel;

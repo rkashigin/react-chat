@@ -1,9 +1,9 @@
 import express from "express";
-import { DialogModel } from "../models";
+import { DialogModel, MessageModel } from "../models";
 
 class DialogController {
   index(req: express.Request, res: express.Response) {
-    const authorId: any = req.params.id;
+    const authorId: any = "60326f40884c942ba628fe3e";
 
     DialogModel.find({ author: authorId })
       .populate(["author", "partner"])
@@ -26,18 +26,29 @@ class DialogController {
 
     dialog
       .save()
-      .then((obj: any) => res.json(obj))
+      .then((dialogObj: any) => {
+        const message = new MessageModel({
+          text: req.body.text,
+          user: dialogObj.author,
+          dialog: dialogObj._id,
+        });
+
+        message
+          .save()
+          .then((messageObj: any) => res.json(dialogObj))
+          .catch((err) => res.json(err));
+      })
       .catch((err) => res.json(err));
   }
 
   delete(req: express.Request, res: express.Response) {
     const id: String = req.params.id;
     DialogModel.findOneAndRemove({ _id: id })
-      .then((user) => {
+      .then(() =>
         res.json({
           message: `Dialog has been deleted`,
-        });
-      })
+        })
+      )
       .catch(() => {
         res.status(404).json({
           message: "Dialog not found",

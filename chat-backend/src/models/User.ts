@@ -11,6 +11,7 @@ export interface IUser extends Document {
   last_seen: Date;
 }
 
+//TODO: Add last seen by default
 const UserSchema = new Schema(
   {
     email: {
