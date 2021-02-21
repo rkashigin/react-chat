@@ -29,6 +29,21 @@ class DialogController {
       .then((obj: any) => res.json(obj))
       .catch((err) => res.json(err));
   }
+
+  delete(req: express.Request, res: express.Response) {
+    const id: String = req.params.id;
+    DialogModel.findOneAndRemove({ _id: id })
+      .then((user) => {
+        res.json({
+          message: `Dialog has been deleted`,
+        });
+      })
+      .catch(() => {
+        res.status(404).json({
+          message: "Dialog not found",
+        });
+      });
+  }
 }
 
 export default DialogController;
