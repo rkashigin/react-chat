@@ -8,9 +8,12 @@ import {
   MessageController,
 } from "./controllers";
 
+import { updateLastSeen } from "./middlewares";
+
 const app = express();
 
 app.use(bodyParser.json());
+app.use(updateLastSeen);
 
 const User = new UserController();
 const Dialog = new DialogController();
