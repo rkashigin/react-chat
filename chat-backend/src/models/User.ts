@@ -6,9 +6,9 @@ export interface IUser extends Document {
   fullName: string;
   password: string;
   confirmed: boolean;
-  avatar: string;
-  confirm_hash: string;
-  last_seen: Date;
+  avatar?: string;
+  confirm_hash?: string;
+  last_seen?: Date;
 }
 
 //TODO: Add last seen by default

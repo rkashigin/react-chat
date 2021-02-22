@@ -1,10 +1,12 @@
 import express from "express";
 import { UserModel } from "../models";
+import { IUser } from "../models/User";
+import { createJWToken } from "../utils";
 
 class UserController {
   show(req: express.Request, res: express.Response) {
-    const id: String = req.params.id;
-    UserModel.findOne({ _id: id })
+    const id: string = req.params.id;
+    UserModel.findById(id)
       .then((user) => {
         res.json(user);
       })
@@ -37,7 +39,7 @@ class UserController {
   }
 
   delete(req: express.Request, res: express.Response) {
-    const id: String = req.params.id;
+    const id: string = req.params.id;
     UserModel.findOneAndRemove({ _id: id })
       .then((user) => {
         res.json({
@@ -47,6 +49,31 @@ class UserController {
       .catch(() => {
         res.status(404).json({
           message: "User not found",
+        });
+      });
+  }
+
+  login(req: express.Request, res: express.Response) {
+    const postData = {
+      email: req.body.email,
+      password: req.body.password,
+    };
+
+    UserModel.findOne({ email: postData.email })
+      .then((user: IUser) => {
+        if (user.password === postData.password) {
+          const token = createJWToken(user);
+
+          res.json({
+            status: "success",
+            token,
+          });
+        }
+      })
+      .catch((err) => {
+        res.json({
+          status: "Error",
+          message: "Incorrect email or password",
         });
       });
   }
