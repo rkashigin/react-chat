@@ -10,6 +10,7 @@ import {
 } from "./controllers";
 
 import { updateLastSeen, checkAuth } from "./middlewares";
+import { loginValidation } from "./utils/validations";
 
 const app = express();
 dotenv.config();
@@ -35,7 +36,7 @@ mongoose.connect(
 app.get("/user/:id", User.show);
 app.delete("/user/:id", User.delete);
 app.post("/user/create", User.create);
-app.post("/user/login", User.login);
+app.post("/user/login", loginValidation, User.login);
 
 app.get("/dialogs", Dialog.index);
 app.post("/dialogs", Dialog.create);

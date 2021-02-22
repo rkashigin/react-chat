@@ -1,7 +1,10 @@
 import express from "express";
+import { validationResult } from "express-validator";
+import bcrypt from "bcrypt";
+
 import { UserModel } from "../models";
 import { IUser } from "../models/User";
-import { createJWToken } from "../utils";
+import { createJWToken, generatePasswordHash } from "../utils";
 
 class UserController {
   show(req: express.Request, res: express.Response) {
@@ -60,8 +63,8 @@ class UserController {
     };
 
     UserModel.findOne({ email: postData.email })
-      .then((user: IUser) => {
-        if (user.password === postData.password) {
+      .then((user: any) => {
+        if (bcrypt.compareSync(postData.password, user.password)) {
           const token = createJWToken(user);
 
           res.json({
