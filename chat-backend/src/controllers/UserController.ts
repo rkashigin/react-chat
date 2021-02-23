@@ -16,7 +16,7 @@ class UserController {
   show = (req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
     UserModel.findById(id)
-      .then((user) => {
+      .then((user: IUser) => {
         res.json(user);
       })
       .catch(() => {
@@ -50,7 +50,7 @@ class UserController {
 
     user
       .save()
-      .then((obj: any) => {
+      .then((obj: IUser) => {
         res.json(obj);
       })
       .catch((err) => res.json(err));
@@ -59,7 +59,7 @@ class UserController {
   delete = (req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
     UserModel.findOneAndRemove({ _id: id })
-      .then((user) => {
+      .then((user: IUser) => {
         res.json({
           message: `User ${user?.fullName} has been deleted`,
         });
@@ -80,7 +80,11 @@ class UserController {
     console.log(postData);
 
     UserModel.findOne({ email: postData.email })
-      .then((user: any) => {
+      .then((user: IUser) => {
+        if (!user) {
+          throw new Error("User not found");
+        }
+
         if (bcrypt.compareSync(postData.password, user.password)) {
           const token = createJWToken(user);
 
@@ -88,12 +92,14 @@ class UserController {
             status: "success",
             token,
           });
+        } else {
+          throw new Error("Incorrect email or password");
         }
       })
       .catch((err) => {
         res.json({
           status: "Error",
-          message: "Incorrect email or password",
+          message: err.message,
         });
       });
   };
