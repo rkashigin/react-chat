@@ -7,6 +7,6 @@ export default (token) =>
         return reject(err);
       }
 
-      resolve(decodedData);
+      resolve(decodedData.data._doc);
     });
   });

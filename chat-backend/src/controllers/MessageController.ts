@@ -1,5 +1,6 @@
 import express from "express";
 import { MessageModel } from "../models";
+import { IUser } from "../models/User";
 
 class MessageController {
   index(req: express.Request, res: express.Response) {
@@ -17,7 +18,7 @@ class MessageController {
   }
 
   create(req: express.Request, res: express.Response) {
-    const userId = "60326f49884c942ba628fe3f";
+    const userId = (<IUser>req.user)._id;
 
     const postData = {
       text: req.body.text,

@@ -2,12 +2,8 @@ import express from "express";
 import { verifyJWToken } from "../utils";
 import { IUser } from "../models/User";
 
-interface CustomRequest extends express.Request {
-  user?: IUser;
-}
-
 export default (
-  req: CustomRequest,
+  req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
@@ -16,8 +12,6 @@ export default (
   }
 
   const token = req.headers.token;
-
-  console.log(token);
 
   verifyJWToken(token)
     .then((user: IUser) => {
