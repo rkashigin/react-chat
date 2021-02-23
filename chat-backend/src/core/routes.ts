@@ -1,17 +1,15 @@
 import express from "express";
-import io from "socket.io";
+import socket from "socket.io";
 import bodyParser from "body-parser";
 import { loginValidation } from "../utils/validations";
 import { checkAuth, updateLastSeen } from "../middlewares";
-import {
-  DialogController,
-  MessageController,
-  UserController,
-} from "../controllers";
+import { UserCtrl, MessageCtrl, DialogCtrl } from "../controllers";
 
-// TODO: pass to controllers info abouts sockets, so they could interact with them
+export default (app: express.Express, io: socket.Server) => {
+  const UserController = new UserCtrl(io);
+  const MessageController = new MessageCtrl(io);
+  const DialogController = new DialogCtrl(io);
 
-export default (app: express.Express, io?: io.Socket) => {
   app.use(bodyParser.json());
   app.use(updateLastSeen);
   app.use(checkAuth);

@@ -1,9 +1,16 @@
 import express from "express";
+import socket from "socket.io";
 import { DialogModel, MessageModel } from "../models";
 import { IUser } from "../models/User";
 
 class DialogController {
-  index(req: express.Request, res: express.Response) {
+  io: socket.Server;
+
+  constructor(io: socket.Server) {
+    this.io = io;
+  }
+
+  index = (req: express.Request, res: express.Response) => {
     const authorId: any = (<IUser>req.user)._id;
 
     DialogModel.find({ author: authorId })
@@ -15,9 +22,9 @@ class DialogController {
           message: "Dialogs not found",
         })
       );
-  }
+  };
 
-  create(req: express.Request, res: express.Response) {
+  create = (req: express.Request, res: express.Response) => {
     const postData = {
       author: req.body.author,
       partner: req.body.partner,
@@ -40,9 +47,9 @@ class DialogController {
           .catch((err) => res.json(err));
       })
       .catch((err) => res.json(err));
-  }
+  };
 
-  delete(req: express.Request, res: express.Response) {
+  delete = (req: express.Request, res: express.Response) => {
     const id: String = req.params.id;
     DialogModel.findOneAndRemove({ _id: id })
       .then(() =>
@@ -55,7 +62,7 @@ class DialogController {
           message: "Dialog not found",
         });
       });
-  }
+  };
 }
 
 export default DialogController;

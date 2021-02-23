@@ -1,22 +1,19 @@
 import express from "express";
-import { validationResult } from "express-validator";
+import socket from "socket.io";
 import bcrypt from "bcrypt";
 
 import { UserModel } from "../models";
 import { IUser } from "../models/User";
-import { createJWToken, generatePasswordHash } from "../utils";
+import { createJWToken } from "../utils";
 
 class UserController {
-  // TODO: control all user methods via sockets in constructor
-  // constructor() {
-  //   io.on("connection", function (socket: any) {
-  //     socket.on("", function (obj) {
-  //       // call method for user creation
-  //     });
-  //   });
-  // }
+  io: socket.Server;
 
-  show(req: express.Request, res: express.Response) {
+  constructor(io: socket.Server) {
+    this.io = io;
+  }
+
+  show = (req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
     UserModel.findById(id)
       .then((user) => {
@@ -27,9 +24,9 @@ class UserController {
           message: "User not found",
         });
       });
-  }
+  };
 
-  getMe(req: express.Request, res: express.Response) {
+  getMe = (req: express.Request, res: express.Response) => {
     const id: string = (<IUser>req.user)._id;
     UserModel.findById(id)
       .then((user) => {
@@ -40,9 +37,9 @@ class UserController {
           message: "User not found",
         });
       });
-  }
+  };
 
-  create(req: express.Request, res: express.Response) {
+  create = (req: express.Request, res: express.Response) => {
     const postData = {
       email: req.body.email,
       fullName: req.body.fullName,
@@ -57,9 +54,9 @@ class UserController {
         res.json(obj);
       })
       .catch((err) => res.json(err));
-  }
+  };
 
-  delete(req: express.Request, res: express.Response) {
+  delete = (req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
     UserModel.findOneAndRemove({ _id: id })
       .then((user) => {
@@ -72,13 +69,15 @@ class UserController {
           message: "User not found",
         });
       });
-  }
+  };
 
-  login(req: express.Request, res: express.Response) {
+  login = (req: express.Request, res: express.Response) => {
     const postData = {
       email: req.body.email,
       password: req.body.password,
     };
+
+    console.log(postData);
 
     UserModel.findOne({ email: postData.email })
       .then((user: any) => {
@@ -97,7 +96,7 @@ class UserController {
           message: "Incorrect email or password",
         });
       });
-  }
+  };
 }
 
 export default UserController;

@@ -13,8 +13,10 @@
   const socket = io("http://localhost:3000");
 
   window.socket = socket;
-  socket.on("111", function (msg) {
-    console.log("message: " + msg);
+  socket.on("SERVER:NEW_MESSAGE", function (msg) {
+    if (window.user !== msg.user){
+      console.log("new message ", msg);
+    }
   });
 </script>
 </body>
