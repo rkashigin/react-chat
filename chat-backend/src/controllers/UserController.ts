@@ -20,8 +20,17 @@ class UserController {
       });
   }
 
-  getMe() {
-    //TODO: return info about currentUser (self)
+  getMe(req: express.Request, res: express.Response) {
+    const id: string = (<IUser>req.user)._id;
+    UserModel.findById(id)
+      .then((user) => {
+        res.json(user);
+      })
+      .catch(() => {
+        res.status(404).json({
+          message: "User not found",
+        });
+      });
   }
 
   create(req: express.Request, res: express.Response) {

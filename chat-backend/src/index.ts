@@ -33,6 +33,7 @@ mongoose.connect(
   }
 );
 
+app.get("/user/me", User.getMe);
 app.get("/user/:id", User.show);
 app.delete("/user/:id", User.delete);
 app.post("/user/create", User.create);
