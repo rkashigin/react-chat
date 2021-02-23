@@ -7,6 +7,15 @@ import { IUser } from "../models/User";
 import { createJWToken, generatePasswordHash } from "../utils";
 
 class UserController {
+  // TODO: control all user methods via sockets in constructor
+  // constructor() {
+  //   io.on("connection", function (socket: any) {
+  //     socket.on("", function (obj) {
+  //       // call method for user creation
+  //     });
+  //   });
+  // }
+
   show(req: express.Request, res: express.Response) {
     const id: string = req.params.id;
     UserModel.findById(id)
