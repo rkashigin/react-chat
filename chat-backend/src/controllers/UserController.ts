@@ -77,8 +77,6 @@ class UserController {
       password: req.body.password,
     };
 
-    console.log(postData);
-
     UserModel.findOne({ email: postData.email })
       .then((user: IUser) => {
         if (!user) {
@@ -93,12 +91,12 @@ class UserController {
             token,
           });
         } else {
-          throw new Error("Incorrect email or password");
+          throw new Error("Wrong email or password");
         }
       })
       .catch((err) => {
         res.json({
-          status: "Error",
+          status: "error",
           message: err.message,
         });
       });

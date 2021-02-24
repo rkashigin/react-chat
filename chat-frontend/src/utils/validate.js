@@ -10,10 +10,11 @@ export default ({ isAuth, values, errors }) => {
     password: (errors, value) => {
       if (!value) {
         errors.password = "Password field is required";
-      } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/i.test(value)) {
-        errors.password = isAuth
-          ? "Wrong password"
-          : "Your password is not strong enough";
+      } else if (
+        !isAuth &&
+        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/i.test(value)
+      ) {
+        errors.password = "Your password is not strong enough";
       }
     },
     password2: (errors, value) => {
