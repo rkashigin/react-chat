@@ -1,7 +1,7 @@
 import express from "express";
 import socket from "socket.io";
 import bodyParser from "body-parser";
-import { loginValidation } from "../utils/validations";
+import { loginValidation, signupValidation } from "../utils/validations";
 import { checkAuth, updateLastSeen } from "../middlewares";
 import { UserCtrl, MessageCtrl, DialogCtrl } from "../controllers";
 
@@ -17,7 +17,7 @@ export default (app: express.Express, io: socket.Server) => {
   app.get("/user/me", UserController.getMe);
   app.get("/user/:id", UserController.show);
   app.delete("/user/:id", UserController.delete);
-  app.post("/user/create", UserController.create);
+  app.post("/user/create", signupValidation, UserController.create);
   app.post("/user/login", loginValidation, UserController.login);
 
   app.get("/dialogs", DialogController.index);

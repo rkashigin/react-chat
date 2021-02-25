@@ -7,6 +7,11 @@ export default ({ isAuth, values, errors }) => {
         errors.email = "Invalid email address";
       }
     },
+    fullName: (errors, value) => {
+      if (!isAuth && !value) {
+        errors.fullName = "Full name field is required";
+      }
+    },
     password: (errors, value) => {
       if (!value) {
         errors.password = "Password field is required";
@@ -20,7 +25,7 @@ export default ({ isAuth, values, errors }) => {
     password2: (errors, value) => {
       if (!value) {
         errors.password2 = "You need to confirm your password";
-      } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/i.test(value)) {
+      } else if (value !== values.password) {
         errors.password2 = "Passwords don't match";
       }
     },

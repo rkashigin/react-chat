@@ -8,9 +8,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { Block, Button } from "../../../components";
-
-import { validateField } from "utils/helpers";
+import { Block, Button, FormField } from "components";
 
 const SignupForm = (props) => {
   const success = false;
@@ -23,6 +21,7 @@ const SignupForm = (props) => {
     handleSubmit,
     dirty,
     isValid,
+    isSubmitting,
   } = props;
 
   return (
@@ -34,78 +33,65 @@ const SignupForm = (props) => {
       <Block>
         {!success ? (
           <Form onSubmit={handleSubmit} className="login-form">
-            <Form.Item
-              validateStatus={validateField("email", touched, errors)}
-              hasFeedback
-              help={!touched.email ? null : errors.email}
-            >
-              <Input
-                id={"email"}
-                prefix={<MailOutlined className="site-form-item-icon" />}
-                placeholder="Enter your Email"
-                size={"large"}
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Item>
-            <Form.Item>
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Enter your username"
-                size={"large"}
-              />
-            </Form.Item>
-            <Form.Item
-              validateStatus={validateField("password", touched, errors)}
-              hasFeedback
-              help={!touched.password ? null : errors.password}
-            >
-              <Input
-                id={"password"}
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Enter your password"
-                size={"large"}
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Item>
-            <Form.Item
-              validateStatus={validateField("password2", touched, errors)}
-              hasFeedback
-              help={!touched.password2 ? null : errors.password2}
-            >
-              <Input
-                id={"password2"}
-                prefix={<ReloadOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Confirm your password"
-                size={"large"}
-                value={values.password2}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Item>
+            <FormField
+              name="email"
+              touched={touched}
+              errors={errors}
+              values={values}
+              placeholder="Enter your Email"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              icon={<MailOutlined className="site-form-item-icon" />}
+            />
+            <FormField
+              name="fullName"
+              touched={touched}
+              errors={errors}
+              values={values}
+              placeholder="Enter your full name"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              icon={<UserOutlined className="site-form-item-icon" />}
+            />
+            <FormField
+              name="password"
+              touched={touched}
+              errors={errors}
+              values={values}
+              placeholder="Enter your password"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              icon={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+            />
+            <FormField
+              name="password2"
+              touched={touched}
+              errors={errors}
+              values={values}
+              placeholder="Confirm your password"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              icon={<ReloadOutlined className="site-form-item-icon" />}
+              type="password"
+            />
             <Form.Item>
               {dirty && !isValid && <span>Error!</span>}
               <Button
+                disabled={isSubmitting}
                 onClick={handleSubmit}
                 type="primary"
-                htmlType="submit"
-                className="login-form-button"
                 size={"large"}
               >
                 Sign up
               </Button>
             </Form.Item>
-            <Link className={"auth__signup-link"} to="/signin">
+            <Link className="auth__signup-link" to="/signin">
               Sign in
             </Link>
           </Form>
         ) : (
-          <div className={"auth__success-block"}>
+          <div className="auth__success-block">
             <div>
               <InfoCircleTwoTone />
             </div>

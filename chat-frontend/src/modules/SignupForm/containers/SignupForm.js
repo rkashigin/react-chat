@@ -1,6 +1,11 @@
 import { withFormik } from "formik";
+
 import SignupForm from "../components/SignupForm";
-import validateForm from "../../../utils/validate";
+
+import validateForm from "utils/validate";
+import { userActions } from "redux/actions";
+
+import store from "redux/store";
 
 export default withFormik({
   enableReinitialize: true,
@@ -17,11 +22,10 @@ export default withFormik({
 
     return errors;
   },
-  handleSubmit: (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
+  handleSubmit: (values, { setSubmitting, props }) => {
+    store.dispatch(userActions.fetchUserSignup(values)).then(() => {
       setSubmitting(false);
-    }, 1000);
+    });
   },
   displayName: "SignupForm",
 })(SignupForm);

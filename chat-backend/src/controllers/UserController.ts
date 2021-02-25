@@ -1,6 +1,7 @@
 import express from "express";
 import socket from "socket.io";
 import bcrypt from "bcrypt";
+import { validationResult } from "express-validator";
 
 import { UserModel } from "../models";
 import { IUser } from "../models/User";
@@ -46,6 +47,12 @@ class UserController {
       password: req.body.password,
     };
 
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
     const user = new UserModel(postData);
 
     user
@@ -53,7 +60,12 @@ class UserController {
       .then((obj: IUser) => {
         res.json(obj);
       })
-      .catch((err) => res.json(err));
+      .catch((err) => {
+        res.status(500).json({
+          status: "error",
+          message: err.message,
+        });
+      });
   };
 
   delete = (req: express.Request, res: express.Response) => {
@@ -76,6 +88,12 @@ class UserController {
       email: req.body.email,
       password: req.body.password,
     };
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
 
     UserModel.findOne({ email: postData.email })
       .then((user: IUser) => {
