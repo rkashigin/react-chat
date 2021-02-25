@@ -15,10 +15,11 @@ export default (app: express.Express, io: socket.Server) => {
   app.use(checkAuth);
 
   app.get("/user/me", UserController.getMe);
-  app.get("/user/:id", UserController.show);
-  app.delete("/user/:id", UserController.delete);
+  app.get("/user/verify", UserController.verify);
   app.post("/user/create", signupValidation, UserController.create);
   app.post("/user/login", loginValidation, UserController.login);
+  app.get("/user/:id", UserController.show);
+  app.delete("/user/:id", UserController.delete);
 
   app.get("/dialogs", DialogController.index);
   app.post("/dialogs", DialogController.create);

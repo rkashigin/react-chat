@@ -7,7 +7,11 @@ export default (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  if (req.path === "/user/login" || req.path === "/user/create") {
+  if (
+    req.path === "/user/login" ||
+    req.path === "/user/create" ||
+    req.path === "/user/verify"
+  ) {
     return next();
   }
 

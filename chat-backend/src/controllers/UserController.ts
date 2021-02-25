@@ -119,6 +119,42 @@ class UserController {
         });
       });
   };
+
+  verify = (req: express.Request, res: express.Response) => {
+    const hash = req.query.hash;
+
+    if (!hash) {
+      return res.status(422).json({ errors: "Invalid hash" });
+    }
+
+    UserModel.findOne({ confirm_hash: <string>hash })
+      .exec()
+      .then((user) => {
+        if (!user) {
+          throw new Error("Hash not found");
+        }
+
+        user.confirmed = true;
+
+        user
+          .save()
+          .then(() => {
+            res.json({
+              status: "success",
+              message: "Account has been successfully verified!",
+            });
+          })
+          .catch(() => {
+            throw new Error("User not found");
+          });
+      })
+      .catch((err) => {
+        res.json({
+          status: "error",
+          message: err.message,
+        });
+      });
+  };
 }
 
 export default UserController;

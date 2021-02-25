@@ -76,7 +76,6 @@ const SignupForm = (props) => {
               type="password"
             />
             <Form.Item>
-              {dirty && !isValid && <span>Error!</span>}
               <Button
                 disabled={isSubmitting}
                 onClick={handleSubmit}

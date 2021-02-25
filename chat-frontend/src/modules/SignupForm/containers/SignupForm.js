@@ -6,6 +6,8 @@ import validateForm from "utils/validate";
 import { userActions } from "redux/actions";
 
 import store from "redux/store";
+import { Redirect } from "react-router-dom";
+import React from "react";
 
 export default withFormik({
   enableReinitialize: true,
@@ -23,9 +25,16 @@ export default withFormik({
     return errors;
   },
   handleSubmit: (values, { setSubmitting, props }) => {
-    store.dispatch(userActions.fetchUserSignup(values)).then(() => {
-      setSubmitting(false);
-    });
+    store
+      .dispatch(userActions.fetchUserSignup(values))
+      .then(() => {
+        setSubmitting(false);
+        props.history.push("/signup/verify");
+      })
+      .catch((err) => {
+        console.error(err.message);
+        setSubmitting(false);
+      });
   },
   displayName: "SignupForm",
 })(SignupForm);
