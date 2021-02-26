@@ -1,5 +1,5 @@
 import React from "react";
-import { Result } from "antd";
+import { Result, Button } from "antd";
 
 import { userApi } from "utils/api";
 import { Block } from "components";
@@ -25,7 +25,7 @@ const renderTextInfo = (hash, verified) => {
   }
 };
 
-export const CheckInfo = ({ location }) => {
+export const CheckInfo = ({ location, history }) => {
   const [verified, setVerified] = React.useState(false);
   const hash = location.search.split("hash=")[1];
   const info = renderTextInfo(hash, verified);
@@ -47,6 +47,14 @@ export const CheckInfo = ({ location }) => {
           status={info.status}
           title={info.status === "success" ? "All done!" : "Sorry:("}
           subTitle={info.message}
+          extra={
+            info.status === "success" &&
+            verified && (
+              <Button onClick={() => history.push("/signin")} type="primary">
+                Sign in
+              </Button>
+            )
+          }
         />
       </Block>
     </div>
