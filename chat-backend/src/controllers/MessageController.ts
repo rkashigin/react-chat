@@ -1,7 +1,8 @@
 import express from "express";
 import socket from "socket.io";
-import { MessageModel } from "../models";
+import { MessageModel, DialogModel } from "../models";
 import { IUser } from "../models/User";
+import { IMessage } from "../models/Message";
 
 class MessageController {
   io: socket.Server;
@@ -38,11 +39,29 @@ class MessageController {
     message
       .populate("dialog", () => {})
       .save()
-      .then((obj: any) => {
-        res.json(obj);
-        this.io.emit("SERVER:NEW_MESSAGE", obj);
+      .then((message: IMessage) => {
+        DialogModel.findOneAndUpdate(
+          { _id: postData.dialog },
+          { lastMessage: message._id },
+          { upsert: true }
+        )
+          .then(() => {
+            res.json(message);
+            this.io.emit("SERVER:NEW_MESSAGE", message);
+          })
+          .catch((err) =>
+            res.status(500).json({
+              status: "error",
+              message: err.message,
+            })
+          );
       })
-      .catch((err) => res.json(err));
+      .catch((err) =>
+        res.status(500).json({
+          status: "error",
+          message: err.message,
+        })
+      );
   };
 
   delete = (req: express.Request, res: express.Response) => {

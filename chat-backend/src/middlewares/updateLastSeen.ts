@@ -1,5 +1,6 @@
 import express from "express";
 import { UserModel } from "../models";
+import { IUser } from "../models/User";
 
 export default async (
   req: express.Request,
@@ -8,7 +9,7 @@ export default async (
 ) => {
   await UserModel.findOneAndUpdate(
     {
-      _id: "60326f49884c942ba628fe3f",
+      _id: (<IUser>req.user)._id,
     },
     {
       last_seen: new Date(),

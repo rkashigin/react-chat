@@ -27,13 +27,14 @@ const Dialogs = ({
 
   const onSelectDialog = () => {};
 
-  // React.useEffect(() => {
-  //   if (!items.length) {
-  //     fetchDialogs();
-  //   } else {
-  //     setFiltered(items);
-  //   }
-  // }, [items]);
+  React.useEffect(() => {
+    if (!items.length) {
+      console.log(123);
+      fetchDialogs();
+    } else {
+      setFiltered(items);
+    }
+  }, [items]);
 
   return (
     <BaseDialogs

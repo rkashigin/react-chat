@@ -15,6 +15,12 @@ class DialogController {
 
     DialogModel.find({ author: authorId })
       .populate(["author", "partner"])
+      .populate({
+        path: "lastMessage",
+        populate: {
+          path: "user",
+        },
+      })
       .exec()
       .then((dialogs) => res.json(dialogs))
       .catch(() =>

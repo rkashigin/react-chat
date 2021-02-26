@@ -11,8 +11,8 @@ export default (app: express.Express, io: socket.Server) => {
   const DialogController = new DialogCtrl(io);
 
   app.use(bodyParser.json());
-  app.use(updateLastSeen);
   app.use(checkAuth);
+  app.use(updateLastSeen);
 
   app.get("/user/me", UserController.getMe);
   app.get("/user/verify", UserController.verify);

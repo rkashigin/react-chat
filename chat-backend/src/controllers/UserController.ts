@@ -149,7 +149,7 @@ class UserController {
           });
       })
       .catch((err) => {
-        res.json({
+        res.status(403).json({
           status: "error",
           message: err.message,
         });
