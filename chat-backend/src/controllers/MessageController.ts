@@ -15,7 +15,7 @@ class MessageController {
     const dialogId: any = req.query.dialog;
 
     MessageModel.find({ dialog: dialogId })
-      .populate(["dialog"])
+      .populate(["dialog", "user"])
       .exec()
       .then((messages) => res.json(messages))
       .catch(() =>

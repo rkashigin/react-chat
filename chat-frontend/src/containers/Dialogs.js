@@ -6,8 +6,8 @@ import { Dialogs as BaseDialogs } from "components";
 
 const Dialogs = ({
   fetchDialogs,
-  currentDialogId,
   setCurrentDialogId,
+  currentDialogId,
   items,
   userId,
 }) => {
