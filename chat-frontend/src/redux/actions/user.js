@@ -36,6 +36,7 @@ const Actions = {
         window.axios.defaults.headers.common["token"] = token;
         window.localStorage["token"] = token;
         dispatch(Actions.fetchUserData());
+        dispatch(Actions.setIsAuth(true));
 
         return data;
       })
