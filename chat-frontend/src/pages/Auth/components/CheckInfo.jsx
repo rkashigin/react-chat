@@ -38,7 +38,7 @@ export const CheckInfo = ({ location, history }) => {
         }
       });
     }
-  });
+  }, []);
 
   return (
     <div>

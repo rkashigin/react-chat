@@ -16,20 +16,28 @@ const Dialogs = ({
   const [inputValue, setInputValue] = React.useState("");
   const [filtered, setFiltered] = React.useState(Array.from(items));
 
-  const onNewDialog = (data) => {
-    fetchDialogs();
-  };
-
-  const onChangeInput = (e) => {
-    const value = e.target.value;
+  const onChangeInput = (value = "") => {
     setFiltered(
       items.filter(
         (dialog) =>
-          dialog.user.fullName.toLowerCase().indexOf(value.toLowerCase()) >= 0
+          dialog.author.fullName.toLowerCase().indexOf(value.toLowerCase()) >=
+            0 ||
+          dialog.partner.fullName.toLowerCase().indexOf(value.toLowerCase()) >=
+            0
       )
     );
     setInputValue(value);
   };
+
+  const onNewDialog = () => {
+    fetchDialogs();
+  };
+
+  React.useEffect(() => {
+    if (items.length) {
+      onChangeInput("");
+    }
+  }, [items]);
 
   React.useEffect(() => {
     if (!items.length) {
@@ -43,7 +51,7 @@ const Dialogs = ({
     return () => {
       socket.removeListener("SERVER:DIALOG_CREATED", onNewDialog);
     };
-  }, [items]);
+  }, []);
 
   return (
     <BaseDialogs
