@@ -11,12 +11,21 @@ import { Picker } from "emoji-mart";
 
 import "./ChatInput.scss";
 
-const ChatInput = () => {
+const ChatInput = (props) => {
   const [value, setValue] = React.useState("");
   const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
+  const { onSendMessage, currentDialogId } = props;
 
   const toggleEmojiPicker = () => {
     setEmojiPickerVisible(!emojiPickerVisible);
+  };
+
+  const handleSendMessage = (e) => {
+    if (e.keyCode === 13) {
+      onSendMessage(value, currentDialogId);
+
+      setValue("");
+    }
   };
 
   return (
@@ -35,8 +44,10 @@ const ChatInput = () => {
       </div>
       <Input
         onChange={(e) => setValue(e.target.value)}
+        onKeyUp={handleSendMessage}
         placeholder="Enter new message here..."
         size="large"
+        value={value}
       />
       <div className="chat-input__actions">
         <UploadField

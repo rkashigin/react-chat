@@ -32,6 +32,9 @@ const Actions = {
         dispatch(Actions.setIsLoading(false));
       });
   },
+  fetchSendMessage: (text, dialogId) => (dispatch) => {
+    messagesApi.send(text, dialogId);
+  },
 };
 
 export default Actions;
