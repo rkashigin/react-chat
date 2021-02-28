@@ -6,8 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Button } from "antd";
 
-import { Status } from "components";
-import { Dialogs, Messages, ChatInput } from "containers";
+import { Dialogs, Messages, ChatInput, Status } from "containers";
 
 import "./Home.scss";
 
@@ -30,12 +29,7 @@ const Home = () => {
         <div className="chat__dialog">
           <div className="chat__dialog-header">
             <div />
-            <div className="chat__dialog-header-center">
-              <b className="chat__dialog-header-username">Адольф Гитлер</b>
-              <div className="chat__dialog-header-status">
-                <Status online />
-              </div>
-            </div>
+            <Status />
             <Button shape="circle" icon={<EllipsisOutlined />} />
           </div>
           <div className="chat__dialog-messages">
