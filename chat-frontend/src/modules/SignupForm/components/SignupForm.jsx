@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input } from "antd";
+import { Form } from "antd";
 import {
   InfoCircleTwoTone,
   LockOutlined,
@@ -19,8 +19,6 @@ const SignupForm = (props) => {
     handleChange,
     handleBlur,
     handleSubmit,
-    dirty,
-    isValid,
     isSubmitting,
   } = props;
 

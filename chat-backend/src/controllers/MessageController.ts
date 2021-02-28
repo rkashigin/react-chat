@@ -38,6 +38,7 @@ class MessageController {
 
     message
       .populate("dialog", () => {})
+      .populate("user", () => {})
       .save()
       .then((message: IMessage) => {
         DialogModel.findOneAndUpdate(

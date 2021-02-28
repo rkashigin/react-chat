@@ -6,8 +6,6 @@ import validateForm from "utils/validate";
 import { userActions } from "redux/actions";
 
 import store from "redux/store";
-import { Redirect } from "react-router-dom";
-import React from "react";
 
 export default withFormik({
   enableReinitialize: true,

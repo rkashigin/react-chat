@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { dialogsActions } from "redux/actions";
+import socket from "core/socket";
+
 import { Dialogs as BaseDialogs } from "components";
 
 const Dialogs = ({
@@ -14,6 +16,10 @@ const Dialogs = ({
   const [inputValue, setInputValue] = React.useState("");
   const [filtered, setFiltered] = React.useState(Array.from(items));
 
+  const onNewDialog = (data) => {
+    fetchDialogs();
+  };
+
   const onChangeInput = (e) => {
     const value = e.target.value;
     setFiltered(
@@ -25,15 +31,18 @@ const Dialogs = ({
     setInputValue(value);
   };
 
-  const onSelectDialog = () => {};
-
   React.useEffect(() => {
     if (!items.length) {
-      console.log(123);
       fetchDialogs();
     } else {
       setFiltered(items);
     }
+
+    socket.on("SERVER:DIALOG_CREATED", onNewDialog);
+
+    return () => {
+      socket.removeListener("SERVER:DIALOG_CREATED", onNewDialog);
+    };
   }, [items]);
 
   return (

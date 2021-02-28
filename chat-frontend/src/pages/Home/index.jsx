@@ -3,9 +3,8 @@ import {
   TeamOutlined,
   FormOutlined,
   EllipsisOutlined,
-  SmileOutlined,
 } from "@ant-design/icons";
-import { Input, Button } from "antd";
+import { Button } from "antd";
 
 import { Status, ChatInput } from "components";
 import { Dialogs, Messages } from "containers";

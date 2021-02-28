@@ -6,7 +6,9 @@ import { Auth } from "./pages";
 import { Home } from "./pages";
 import { Switch } from "react-router";
 
-function App({ isAuth }) {
+function App(props) {
+  const { isAuth } = props;
+
   return (
     <div className="wrapper">
       <Switch>

@@ -1,4 +1,4 @@
-export default (key, touched, errors) => {
+const validateField = (key, touched, errors) => {
   if (!touched[key]) {
     return "";
   }
@@ -9,3 +9,5 @@ export default (key, touched, errors) => {
     return "success";
   }
 };
+
+export default validateField;

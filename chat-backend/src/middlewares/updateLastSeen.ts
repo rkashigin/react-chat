@@ -7,13 +7,16 @@ export default async (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  await UserModel.findOneAndUpdate(
-    {
-      _id: (<IUser>req.user)._id,
-    },
-    {
-      last_seen: new Date(),
-    }
-  );
+  if (req.user) {
+    await UserModel.findOneAndUpdate(
+      {
+        _id: (<IUser>req.user)._id,
+      },
+      {
+        last_seen: new Date(),
+      }
+    );
+  }
+
   next();
 };

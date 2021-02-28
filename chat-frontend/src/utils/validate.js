@@ -1,4 +1,4 @@
-export default ({ isAuth, values, errors }) => {
+const validate = ({ isAuth, values, errors }) => {
   const rules = {
     email: (errors, value) => {
       if (!value) {
@@ -35,3 +35,5 @@ export default ({ isAuth, values, errors }) => {
     (key) => rules[key] && rules[key](errors, values[key])
   );
 };
+
+export default validate;

@@ -4,7 +4,7 @@ const initialState = {
   token: window.localStorage.token,
 };
 
-export default (state = initialState, { type, payload }) => {
+const usersReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case "USER:SET_DATA":
       return {
@@ -22,3 +22,5 @@ export default (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+export default usersReducer;

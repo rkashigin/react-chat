@@ -6,7 +6,7 @@ const getCorrectIndexOfChar = (char) => {
   return number > 255 ? 255 : number < 0 ? 0 : number;
 };
 
-export default (hash) => {
+const generateAvatarFromHash = (hash) => {
   const [r, g, b] = hash.substr(0, 3).split("").map(getCorrectIndexOfChar);
 
   return {
@@ -14,3 +14,5 @@ export default (hash) => {
     colorLighten: tinycolor({ r, g, b }).lighten(30).saturate(30).toHexString(),
   };
 };
+
+export default generateAvatarFromHash;

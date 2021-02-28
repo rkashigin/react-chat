@@ -32,7 +32,7 @@ class DialogController {
 
   create = (req: express.Request, res: express.Response) => {
     const postData = {
-      author: req.body.author,
+      author: (<IUser>req.user)._id,
       partner: req.body.partner,
     };
 
@@ -49,7 +49,20 @@ class DialogController {
 
         message
           .save()
-          .then(() => res.json(dialogObj))
+          .then(() => {
+            dialogObj.lastMessage = message._id;
+
+            dialogObj
+              .save()
+              .then(() => {
+                res.json(dialogObj);
+                this.io.emit("SERVER:DIALOG_CREATED", {
+                  ...postData,
+                  dialog: dialogObj,
+                });
+              })
+              .catch((err) => res.json(err));
+          })
           .catch((err) => res.json(err));
       })
       .catch((err) => res.json(err));

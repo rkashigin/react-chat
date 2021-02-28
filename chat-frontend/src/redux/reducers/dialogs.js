@@ -4,7 +4,7 @@ const initialState = {
   isLoading: false,
 };
 
-export default (state = initialState, { type, payload }) => {
+const dialogsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case "DIALOGS:SET_ITEMS":
       return {
@@ -20,3 +20,5 @@ export default (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+export default dialogsReducer;
