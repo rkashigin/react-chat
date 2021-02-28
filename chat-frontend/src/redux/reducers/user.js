@@ -1,6 +1,6 @@
 const initialState = {
   data: null,
-  isAuth: false,
+  isAuth: !!window.localStorage.token,
   token: window.localStorage.token,
 };
 
