@@ -15,14 +15,17 @@ class UserController {
   }
 
   show = (req: express.Request, res: express.Response) => {
+    console.log(123);
+
     const id: string = req.params.id;
     UserModel.findById(id)
       .then((user: IUser) => {
         res.json(user);
       })
-      .catch(() => {
+      .catch((err) => {
         res.status(404).json({
-          message: "User not found",
+          status: "error",
+          message: err.message,
         });
       });
   };
@@ -33,9 +36,10 @@ class UserController {
       .then((user) => {
         res.json(user);
       })
-      .catch(() => {
+      .catch((err) => {
         res.status(404).json({
-          message: "User not found",
+          status: "error",
+          message: err.message,
         });
       });
   };
@@ -62,6 +66,25 @@ class UserController {
       })
       .catch((err) => {
         res.status(500).json({
+          status: "error",
+          message: err.message,
+        });
+      });
+  };
+
+  findUsers = (req: express.Request, res: express.Response) => {
+    const query: string = <string>req.query.query;
+
+    UserModel.find()
+      .or([
+        { fullName: new RegExp(query, "i") },
+        { email: new RegExp(query, "i") },
+      ])
+      .then((users: IUser[]) => {
+        res.json(users);
+      })
+      .catch((err) => {
+        res.status(404).json({
           status: "error",
           message: err.message,
         });

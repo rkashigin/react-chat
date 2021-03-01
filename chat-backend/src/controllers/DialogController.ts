@@ -44,7 +44,7 @@ class DialogController {
       .then((dialogObj: any) => {
         const message = new MessageModel({
           text: req.body.text,
-          user: dialogObj.author,
+          user: (<IUser>req.user)._id,
           dialog: dialogObj._id,
         });
 
