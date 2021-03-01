@@ -10,6 +10,7 @@ const Status = ({ currentDialogId, user, dialogs }) => {
   const currentDialogObj = dialogs.filter(
     (dialog) => dialog._id === currentDialogId
   )[0];
+
   let partner = {};
 
   if (currentDialogObj.author._id === user._id) {

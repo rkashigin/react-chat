@@ -15,7 +15,6 @@ const Home = () => {
           <div className="chat__dialog-header">
             <div />
             <Status />
-            <Button shape="circle" icon={<EllipsisOutlined />} />
           </div>
           <div className="chat__dialog-messages">
             <Messages />

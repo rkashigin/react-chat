@@ -29,10 +29,6 @@ const Dialogs = ({
     setInputValue(value);
   };
 
-  const onNewDialog = () => {
-    fetchDialogs();
-  };
-
   React.useEffect(() => {
     if (items.length) {
       onChangeInput("");
@@ -46,10 +42,12 @@ const Dialogs = ({
       setFiltered(items);
     }
 
-    socket.on("SERVER:DIALOG_CREATED", onNewDialog);
+    socket.on("SERVER:DIALOG_CREATED", fetchDialogs);
+    socket.on("SERVER:NEW_MESSAGE", fetchDialogs);
 
     return () => {
-      socket.removeListener("SERVER:DIALOG_CREATED", onNewDialog);
+      socket.removeListener("SERVER:DIALOG_CREATED", fetchDialogs);
+      socket.removeListener("SERVER:NEW_MESSAGE", fetchDialogs);
     };
   }, []);
 
