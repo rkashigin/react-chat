@@ -68,10 +68,9 @@ const ChatInput = (props) => {
       <TextArea
         onChange={(e) => setValue(e.target.value)}
         onKeyUp={handleSendMessage}
-        size="large"
         placeholder="Enter new message here..."
         value={value}
-        autosize={{ minRows: 1, maxRows: 6 }}
+        autoSize={{ minRows: 1, maxRows: 6 }}
       />
       <div className="chat-input__actions">
         <UploadField

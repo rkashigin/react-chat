@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IMessage extends Document {
   text: {
-    type: String;
+    type: string;
     required: true;
   };
   dialog: {
@@ -15,19 +15,21 @@ export interface IMessage extends Document {
     ref: string;
     required: true;
   };
-  unread: {
+  read: {
     type: boolean;
-    default: false;
+    default: boolean;
   };
 }
 
-//TODO: Add attachments field
 const MessageSchema = new Schema(
   {
     text: { type: String, required: Boolean },
     dialog: { type: Schema.Types.ObjectId, ref: "Dialog", required: true },
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    unread: { type: Boolean, default: false },
+    read: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
