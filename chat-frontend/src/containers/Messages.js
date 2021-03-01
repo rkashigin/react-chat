@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Empty } from "antd";
 
 import { messagesActions } from "redux/actions";
 import socket from "core/socket";
@@ -34,8 +35,12 @@ const Messages = ({
   }, [currentDialogId]);
 
   React.useEffect(() => {
-    messagesRef.current.scrollTo(0, 9999999);
+    messagesRef.current && messagesRef.current.scrollTo(0, 9999999);
   }, [items]);
+
+  if (!currentDialogId) {
+    return <Empty description="Choose dialog" />;
+  }
 
   return (
     <BaseMessages
