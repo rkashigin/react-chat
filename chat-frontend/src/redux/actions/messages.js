@@ -35,6 +35,19 @@ const Actions = {
   fetchSendMessage: (text, dialogId) => (dispatch) => {
     messagesApi.send(text, dialogId);
   },
+  removeMessageById: (id) => (dispatch) => {
+    if (window.confirm("Are you sure, that you want to delete this message?")) {
+      messagesApi
+        .removeById(id)
+        .then(({ data }) => {
+          dispatch({
+            type: "MESSAGES:REMOVE_MESSAGE",
+            payload: id,
+          });
+        })
+        .catch(() => dispatch(Actions.setIsLoading(false)));
+    }
+  },
 };
 
 export default Actions;

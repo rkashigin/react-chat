@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { Button, Popover } from "antd";
 
 import { Time, IconReaded, Avatar } from "../";
 
@@ -11,6 +12,7 @@ import playSvg from "assets/img/play.svg";
 import pauseSvg from "assets/img/pause.svg";
 
 import "./Message.scss";
+import { EllipsisOutlined } from "@ant-design/icons";
 
 const AudioMessage = ({ audioSrc }) => {
   const [isPlaying, setIsPlaying] = React.useState(false);
@@ -103,6 +105,7 @@ const Message = ({
   isReaded,
   attachments,
   isTyping,
+  onRemoveMessage,
 }) => {
   return (
     <div
@@ -115,6 +118,18 @@ const Message = ({
     >
       <div className={"message__content"}>
         <IconReaded isMe={isMe} isReaded={isReaded} />
+        <Popover
+          content={
+            <div>
+              <Button onClick={onRemoveMessage}>Delete</Button>
+            </div>
+          }
+          trigger="click"
+        >
+          <div className="message__icon-actions">
+            <Button shape="circle" icon={<EllipsisOutlined />} />
+          </div>
+        </Popover>
         <div className={"message__avatar"}>
           <Avatar user={user} />
         </div>
