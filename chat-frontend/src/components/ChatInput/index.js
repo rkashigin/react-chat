@@ -9,8 +9,6 @@ import { Input, Button } from "antd";
 import { UploadField } from "@navjobs/upload";
 import { Picker } from "emoji-mart";
 
-import { useOutside } from "utils/helpers";
-
 import "./ChatInput.scss";
 
 const { TextArea } = Input;
