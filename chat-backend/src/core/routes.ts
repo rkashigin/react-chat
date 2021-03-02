@@ -3,12 +3,21 @@ import socket from "socket.io";
 import bodyParser from "body-parser";
 import { loginValidation, signupValidation } from "../utils/validations";
 import { checkAuth, updateLastSeen } from "../middlewares";
-import { UserCtrl, MessageCtrl, DialogCtrl } from "../controllers";
+
+import {
+  UserCtrl,
+  MessageCtrl,
+  DialogCtrl,
+  UploadFileCtrl,
+} from "../controllers";
+
+import uploader from "./uploader";
 
 export default (app: express.Express, io: socket.Server) => {
   const UserController = new UserCtrl(io);
   const MessageController = new MessageCtrl(io);
   const DialogController = new DialogCtrl(io);
+  const UploadFileController = new UploadFileCtrl();
 
   app.use(bodyParser.json());
   app.use(checkAuth);
@@ -29,4 +38,7 @@ export default (app: express.Express, io: socket.Server) => {
   app.get("/messages", MessageController.index);
   app.post("/messages", MessageController.create);
   app.delete("/messages", MessageController.delete);
+
+  app.post("/files", uploader.single("image"), UploadFileController.create);
+  app.delete("/files", UploadFileController.delete);
 };

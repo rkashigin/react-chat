@@ -19,6 +19,12 @@ export interface IMessage extends Document {
     type: boolean;
     default: boolean;
   };
+  attachments: [
+    {
+      type: Schema.Types.ObjectId;
+      ref: string;
+    }
+  ];
 }
 
 const MessageSchema = new Schema(
@@ -30,9 +36,11 @@ const MessageSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    attachments: [{ type: Schema.Types.ObjectId, ref: "UploadFile" }],
   },
   {
     timestamps: true,
+    usePushEach: true,
   }
 );
 

@@ -10,6 +10,7 @@ import { UploadField } from "@navjobs/upload";
 import { Picker } from "emoji-mart";
 
 import "./ChatInput.scss";
+import { UploadFiles } from "components";
 
 const { TextArea } = Input;
 
@@ -52,48 +53,53 @@ const ChatInput = (props) => {
   }, []);
 
   return (
-    <div className="chat-input">
-      <div className="chat-input__smile-btn">
-        <div className="chat-input__emoji-picker">
-          {emojiPickerVisible && (
-            <Picker set="apple" onSelect={(emojiTag) => addEmoji(emojiTag)} />
+    <>
+      <div className="chat-input">
+        <div className="chat-input__smile-btn">
+          <div className="chat-input__emoji-picker">
+            {emojiPickerVisible && (
+              <Picker set="apple" onSelect={(emojiTag) => addEmoji(emojiTag)} />
+            )}
+          </div>
+          <Button
+            shape="circle"
+            icon={<SmileOutlined />}
+            onClick={toggleEmojiPicker}
+          />
+        </div>
+        <TextArea
+          onChange={(e) => setValue(e.target.value)}
+          onKeyUp={handleSendMessage}
+          placeholder="Enter new message here..."
+          value={value}
+          autoSize={{ minRows: 1, maxRows: 6 }}
+        />
+        <div className="chat-input__actions">
+          <UploadField
+            onFiles={(files) => {
+              console.log(files);
+            }}
+            containerProps={{
+              className: "chat-input__actions-upload-btn",
+            }}
+            uploadProps={{
+              accept: ".jpg,.jpeg.png,.gif,.bmp",
+              multiple: true,
+            }}
+          >
+            <Button shape="circle" icon={<CameraOutlined />} />
+          </UploadField>
+          {value ? (
+            <Button shape="circle" icon={<SendOutlined />} />
+          ) : (
+            <Button shape="circle" icon={<AudioOutlined />} />
           )}
         </div>
-        <Button
-          shape="circle"
-          icon={<SmileOutlined />}
-          onClick={toggleEmojiPicker}
-        />
       </div>
-      <TextArea
-        onChange={(e) => setValue(e.target.value)}
-        onKeyUp={handleSendMessage}
-        placeholder="Enter new message here..."
-        value={value}
-        autoSize={{ minRows: 1, maxRows: 6 }}
-      />
-      <div className="chat-input__actions">
-        <UploadField
-          onFiles={(files) => {
-            console.log(files);
-          }}
-          containerProps={{
-            className: "chat-input__actions-upload-btn",
-          }}
-          uploadProps={{
-            accept: ".jpg,.jpeg.png,.gif,.bmp",
-            multiple: true,
-          }}
-        >
-          <Button shape="circle" icon={<CameraOutlined />} />
-        </UploadField>
-        {value ? (
-          <Button shape="circle" icon={<SendOutlined />} />
-        ) : (
-          <Button shape="circle" icon={<AudioOutlined />} />
-        )}
+      <div>
+        <UploadFiles />
       </div>
-    </div>
+    </>
   );
 };
 

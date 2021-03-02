@@ -31,6 +31,11 @@
     }
   }
 
+  &__info {
+    display: flex;
+    align-items: center;
+  }
+
   &__bubble {
     background: $blue;
     box-shadow: 0 5px 5px rgba(54, 116, 255, 0.2);
@@ -51,10 +56,11 @@
 
   &__attachments {
     display: flex;
+    margin-bottom: 5px;
+    order: 1;
 
     &-item {
       margin-right: 5px;
-      margin-bottom: 5px;
       cursor: pointer;
 
       img {
@@ -160,6 +166,8 @@
     }
 
     #{$self}__info {
+      display: flex;
+      align-items: center;
       text-align: right;
     }
 
@@ -168,6 +176,7 @@
       border: 1px solid #ececec;
       box-shadow: 0 4px 4px rgba(0, 0, 0, .03);
       border-radius: 12px 12px 0 12px;
+      order: 2;
 
       #{$self}__text {
         color: $black;

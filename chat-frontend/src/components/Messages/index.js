@@ -10,31 +10,36 @@ import "./Messages.scss";
 const Messages = ({ onRemoveMessage, blockRef, isLoading, items, user }) => {
   return (
     <div
-      ref={blockRef}
-      className={classNames("messages", {
-        "messages--loading": isLoading,
-      })}
+      className="chat__dialog-messages"
+      style={{ height: "calc(100% - 250px)" }}
     >
-      {isLoading ? (
-        <Spin size="large" tip="Fetching messages..." />
-      ) : items && !isLoading ? (
-        <div>
-          {items.length > 0 ? (
-            items.map((item) => (
-              <Message
-                key={item._id}
-                {...item}
-                isMe={user._id === item.user._id}
-                onRemoveMessage={onRemoveMessage.bind(this, item._id)}
-              />
-            ))
-          ) : (
-            <Empty description="Current dialog is empty" />
-          )}
-        </div>
-      ) : (
-        <Empty description="Choose a dialog" />
-      )}
+      <div
+        ref={blockRef}
+        className={classNames("messages", {
+          "messages--loading": isLoading,
+        })}
+      >
+        {isLoading ? (
+          <Spin size="large" tip="Fetching messages..." />
+        ) : items && !isLoading ? (
+          <div>
+            {items.length > 0 ? (
+              items.map((item) => (
+                <Message
+                  key={item._id}
+                  {...item}
+                  isMe={user._id === item.user._id}
+                  onRemoveMessage={onRemoveMessage.bind(this, item._id)}
+                />
+              ))
+            ) : (
+              <Empty description="Current dialog is empty" />
+            )}
+          </div>
+        ) : (
+          <Empty description="Choose a dialog" />
+        )}
+      </div>
     </div>
   );
 };

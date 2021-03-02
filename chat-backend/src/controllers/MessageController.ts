@@ -32,7 +32,7 @@ class MessageController {
     );
 
     MessageModel.find({ dialog: dialogId })
-      .populate(["dialog", "user"])
+      .populate(["dialog", "user", "attachments"])
       .exec()
       .then((messages) => res.json(messages))
       .catch(() =>
@@ -49,6 +49,7 @@ class MessageController {
       text: req.body.text,
       user: req.body.user || userId,
       dialog: req.body.dialog_id,
+      attachments: req.body.attachments,
     };
 
     const message = new MessageModel(postData);
@@ -56,6 +57,7 @@ class MessageController {
     message
       .populate("dialog", () => {})
       .populate("user", () => {})
+      .populate("attachments", () => {})
       .save()
       .then((message: IMessage) => {
         DialogModel.findOneAndUpdate(
