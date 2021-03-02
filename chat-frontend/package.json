@@ -165,7 +165,11 @@
   "babel": {
     "presets": [
       "react-app"
-    ]
+    ],
+    "plugins": ["@babel/plugin-transform-async-to-generator"]
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:8080",
+  "devDependencies": {
+    "@babel/plugin-transform-async-to-generator": "^7.13.0"
+  }
 }

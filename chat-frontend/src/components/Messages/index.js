@@ -11,7 +11,7 @@ const Messages = ({ onRemoveMessage, blockRef, isLoading, items, user }) => {
   return (
     <div
       className="chat__dialog-messages"
-      style={{ height: "calc(100% - 250px)" }}
+      style={{ height: "calc(100% - 245px)" }}
     >
       <div
         ref={blockRef}

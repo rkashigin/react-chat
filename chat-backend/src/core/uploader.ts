@@ -12,10 +12,22 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "image",
-    format: async (req, file) => "jpg",
   },
 });
 
-const uploader = multer({ storage: storage });
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/gif"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const uploader = multer({ storage: storage, fileFilter: fileFilter });
 
 export default uploader;

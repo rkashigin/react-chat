@@ -1,10 +1,13 @@
 @import "~styles/variables";
 
 .chat-input {
-  display: flex;
   margin: 20px;
   position: relative;
-  align-items: center;
+
+  & > div:first-of-type {
+    display: flex;
+    align-items: center;
+  }
 
   .ant-btn-circle {
     span.anticon {
@@ -17,6 +20,10 @@
     bottom: 45px;
     left: 13px;
     z-index: 1;
+  }
+
+  &__attachments {
+    padding-left: 67px;
   }
 
   &__smile-btn {
