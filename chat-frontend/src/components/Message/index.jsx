@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { Button, Popover } from "antd";
 import { Emoji } from "emoji-mart";
 import reactStringReplace from "react-string-replace";
+import { EllipsisOutlined, EyeOutlined } from "@ant-design/icons";
 
 import { Time, IconReaded, Avatar } from "../";
 
@@ -14,7 +15,16 @@ import playSvg from "assets/img/play.svg";
 import pauseSvg from "assets/img/pause.svg";
 
 import "./Message.scss";
-import { EllipsisOutlined } from "@ant-design/icons";
+import attachments from "../../redux/reducers/attachments";
+
+const renderAttachments = (attachments) => {
+  if (attachments) {
+    if (attachments.length > 1) {
+    }
+  } else {
+    return null;
+  }
+};
 
 const AudioMessage = ({ audioSrc }) => {
   const [isPlaying, setIsPlaying] = React.useState(false);
@@ -102,19 +112,19 @@ const Message = ({
   user,
   text,
   date,
-  audio,
   isMe,
   read,
   attachments,
   isTyping,
   onRemoveMessage,
+  setImagePreview,
 }) => {
   return (
     <div
       className={classNames("message", {
         "message--isme": isMe,
         "message--is-typing": isTyping,
-        "message--is-audio": audio,
+        // "message--is-audio": audio,
         "message--image": attachments && attachments.length === 1 && !text,
       })}
     >
@@ -136,7 +146,7 @@ const Message = ({
           <Avatar user={user} />
         </div>
         <div className={"message__info"}>
-          {(audio || text || isTyping) && (
+          {text && (
             <div className={"message__bubble"}>
               {text && (
                 <p className={"message__text"}>
@@ -152,7 +162,7 @@ const Message = ({
                   <span />
                 </div>
               )}
-              {audio && <AudioMessage audioSrc={audio} />}
+              {/*{audio && <AudioMessage audioSrc={audio} />}*/}
             </div>
           )}
 
@@ -160,7 +170,14 @@ const Message = ({
             <div className="message__attachments">
               {attachments.map((item, index) => {
                 return (
-                  <div key={index} className="message__attachments-item">
+                  <div
+                    onClick={() => setImagePreview(item.url)}
+                    key={index}
+                    className="message__attachments-item"
+                  >
+                    <div className="message__attachments-item-overlay">
+                      <EyeOutlined />
+                    </div>
                     <img src={item.url} alt={item.fileName} />
                   </div>
                 );

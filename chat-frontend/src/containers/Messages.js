@@ -17,6 +17,7 @@ const Messages = ({
   removeMessageById,
 }) => {
   const messagesRef = React.useRef(null);
+  const [imagePreview, setImagePreview] = React.useState(null);
 
   const onNewMessage = (data) => {
     addMessage(data);
@@ -49,6 +50,8 @@ const Messages = ({
       items={items}
       isLoading={isLoading && !user}
       onRemoveMessage={removeMessageById}
+      imagePreview={imagePreview}
+      setImagePreview={setImagePreview}
     />
   );
 };

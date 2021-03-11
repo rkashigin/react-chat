@@ -32,12 +32,8 @@ const Actions = {
         dispatch(Actions.setIsLoading(false));
       });
   },
-  fetchSendMessage: (text, dialogId, attachments) => (dispatch) => {
-    messagesApi.send(
-      text,
-      dialogId,
-      attachments.map((file) => file.uid)
-    );
+  fetchSendMessage: ({ text, dialogId, attachments }) => (dispatch) => {
+    messagesApi.send(text, dialogId, attachments);
   },
   removeMessageById: (id) => (dispatch) => {
     if (window.confirm("Are you sure, that you want to delete this message?")) {

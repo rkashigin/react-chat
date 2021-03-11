@@ -83,7 +83,7 @@ const ChatInput = (props) => {
             >
               <Button shape="circle" icon={<CameraOutlined />} />
             </UploadField>
-            {isRecording || value ? (
+            {isRecording || value || attachments.length ? (
               <Button
                 shape="circle"
                 icon={<SendOutlined />}

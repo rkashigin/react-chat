@@ -35,7 +35,7 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
   };
 
   const onRecording = (stream) => {
-    const recorder = new MediaRecorder(stream);
+    const recorder = new MediaRecorder(stream, { mimeType: "audio/webm" });
     setMediaRecorder(recorder);
 
     recorder.start();
@@ -49,9 +49,16 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
     };
 
     recorder.ondataavailable = (e) => {
-      const audioURL = window.URL.createObjectURL(e.data);
-      new Audio(audioURL).play();
+      const file = new File([e.data], "audio.webm", { type: "audio/webm" });
+
+      filesApi.upload(file).then(({ data }) => {
+        sendAudio(data.file._id);
+      });
     };
+  };
+
+  const onStopRecording = () => {
+    mediaRecorder.stop();
   };
 
   const onError = (err) => {
@@ -76,9 +83,21 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
   };
 
   const sendMessage = () => {
-    fetchSendMessage(value, currentDialogId, attachments);
+    fetchSendMessage({
+      text: value,
+      dialogId: currentDialogId,
+      attachments: attachments.map((file) => file.uid),
+    });
     setValue("");
     setAttachments([]);
+  };
+
+  const sendAudio = (audioId) => {
+    fetchSendMessage({
+      text: value,
+      dialogId: currentDialogId,
+      attachments: [audioId],
+    });
   };
 
   const handleSendMessage = (e) => {
@@ -115,10 +134,6 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
       });
     }
     setAttachments(uploaded);
-  };
-
-  const onStopRecording = () => {
-    mediaRecorder.stop();
   };
 
   if (!currentDialogId) {

@@ -11,7 +11,7 @@ import {
   UploadFileCtrl,
 } from "../controllers";
 
-import uploader from "./uploader";
+import multer from "./multer";
 
 export default (app: express.Express, io: socket.Server) => {
   const UserController = new UserCtrl(io);
@@ -39,6 +39,6 @@ export default (app: express.Express, io: socket.Server) => {
   app.post("/messages", MessageController.create);
   app.delete("/messages", MessageController.delete);
 
-  app.post("/files", uploader.single("image"), UploadFileController.create);
+  app.post("/files", multer.single("file"), UploadFileController.create);
   app.delete("/files", UploadFileController.delete);
 };
