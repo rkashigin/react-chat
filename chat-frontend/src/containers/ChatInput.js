@@ -8,8 +8,16 @@ import { ChatInput as BaseChatInput } from "components";
 import { messagesActions } from "redux/actions";
 
 const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
+  window.navigator.getUserMedia =
+    window.navigator.getUserMedia ||
+    window.navigator.mozGetUserMedia ||
+    window.navigator.msGetUserMedia ||
+    window.navigator.webkitGetUserMedia;
+
   const [value, setValue] = React.useState("");
+  const [isRecording, setIsRecording] = React.useState("");
   const [attachments, setAttachments] = React.useState([]);
+  const [mediaRecorder, setMediaRecorder] = React.useState(null);
   const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
 
   React.useEffect(() => {
@@ -24,6 +32,36 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
 
   const toggleEmojiPicker = () => {
     setEmojiPickerVisible(!emojiPickerVisible);
+  };
+
+  const onRecording = (stream) => {
+    const recorder = new MediaRecorder(stream);
+    setMediaRecorder(recorder);
+
+    recorder.start();
+
+    recorder.onstart = () => {
+      setIsRecording(true);
+    };
+
+    recorder.onstop = () => {
+      setIsRecording(false);
+    };
+
+    recorder.ondataavailable = (e) => {
+      const audioURL = window.URL.createObjectURL(e.data);
+      new Audio(audioURL).play();
+    };
+  };
+
+  const onError = (err) => {
+    console.log("An error has occurred", err.message);
+  };
+
+  const onRecord = () => {
+    if (navigator.getUserMedia) {
+      navigator.getUserMedia({ audio: true }, onRecording, onError);
+    }
   };
 
   const handleClick = ($el, e) => {
@@ -79,6 +117,10 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
     setAttachments(uploaded);
   };
 
+  const onStopRecording = () => {
+    mediaRecorder.stop();
+  };
+
   if (!currentDialogId) {
     return null;
   }
@@ -95,6 +137,9 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
       sendMessage={sendMessage}
       attachments={attachments}
       onSelectFiles={onSelectFiles}
+      isRecording={isRecording}
+      onStopRecording={onStopRecording}
+      onRecord={onRecord}
     />
   );
 };

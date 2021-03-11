@@ -4,6 +4,7 @@ import {
   CameraOutlined,
   AudioOutlined,
   SendOutlined,
+  CloseOutlined,
 } from "@ant-design/icons";
 import { Input, Button } from "antd";
 import { UploadField } from "@navjobs/upload";
@@ -25,6 +26,9 @@ const ChatInput = (props) => {
     sendMessage,
     attachments,
     onSelectFiles,
+    onRecord,
+    onStopRecording,
+    isRecording,
   } = props;
 
   return (
@@ -46,13 +50,26 @@ const ChatInput = (props) => {
               onClick={toggleEmojiPicker}
             />
           </div>
-          <TextArea
-            onChange={(e) => setValue(e.target.value)}
-            onKeyUp={handleSendMessage}
-            placeholder="Enter new message here..."
-            value={value}
-            autoSize={{ minRows: 1, maxRows: 6 }}
-          />
+          {isRecording ? (
+            <div className="chat-input__record-status">
+              <i className="chat-input__record-status-bubble" />
+              Recording...
+              <Button
+                className="stop-recording"
+                shape="circle"
+                icon={<CloseOutlined />}
+                onClick={onStopRecording}
+              />
+            </div>
+          ) : (
+            <TextArea
+              onChange={(e) => setValue(e.target.value)}
+              onKeyUp={handleSendMessage}
+              placeholder="Enter new message here..."
+              value={value}
+              autoSize={{ minRows: 1, maxRows: 6 }}
+            />
+          )}
           <div className="chat-input__actions">
             <UploadField
               onFiles={onSelectFiles}
@@ -66,14 +83,20 @@ const ChatInput = (props) => {
             >
               <Button shape="circle" icon={<CameraOutlined />} />
             </UploadField>
-            {value ? (
+            {isRecording || value ? (
               <Button
                 shape="circle"
                 icon={<SendOutlined />}
                 onClick={sendMessage}
               />
             ) : (
-              <Button shape="circle" icon={<AudioOutlined />} />
+              <div className="chat-input__record-btn">
+                <Button
+                  shape="circle"
+                  icon={<AudioOutlined />}
+                  onClick={onRecord}
+                />
+              </div>
             )}
           </div>
         </div>
