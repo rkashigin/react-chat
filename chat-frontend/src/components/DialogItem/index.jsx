@@ -5,6 +5,7 @@ import isToday from "date-fns/isToday";
 import { Link } from "react-router-dom";
 
 import { IconReaded, Avatar } from "../";
+import { isAudio } from "utils/helpers";
 
 const getMessageTime = (createdAt) => {
   const date = new Date(createdAt);
@@ -14,6 +15,18 @@ const getMessageTime = (createdAt) => {
   } else {
     return format(date, "dd.MM.yy");
   }
+};
+
+const renderLastMessage = (message, userId) => {
+  let text = "";
+
+  if (!message.text && message.attachments.length) {
+    text = "Attached file(s)";
+  } else {
+    text = message.text;
+  }
+
+  return `${message.user._id === userId ? "You: " : ""}${text}`;
 };
 
 const DialogItem = ({
@@ -40,11 +53,7 @@ const DialogItem = ({
           <span>{getMessageTime(lastMessage.createdAt)}</span>
         </div>
         <div className="dialogs__item-info-bottom">
-          <p>
-            {lastMessage.user._id === userId
-              ? `You: ${lastMessage.text}`
-              : lastMessage.text}
-          </p>
+          <p>{renderLastMessage(lastMessage, userId)}</p>
           {isMe && <IconReaded isMe={isMe} isReaded={lastMessage.read} />}
           {lastMessage.unread > 0 && (
             <div className="dialogs__item-info-bottom-count">

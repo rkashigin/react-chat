@@ -1,6 +1,5 @@
 import React from "react";
 import { Upload, Modal } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -11,7 +10,7 @@ function getBase64(file) {
   });
 }
 
-const UploadFiles = ({ attachments }) => {
+const UploadFiles = ({ attachments, removeAttachment }) => {
   const [state, setState] = React.useState({
     previewVisible: false,
     previewImage: "",
@@ -39,7 +38,7 @@ const UploadFiles = ({ attachments }) => {
     });
   };
 
-  const handleChange = ({ fileList }) => this.setState({ ...state, fileList });
+  const handleChange = ({ fileList }) => setState({ ...state, fileList });
 
   return (
     <>
@@ -49,6 +48,7 @@ const UploadFiles = ({ attachments }) => {
         fileList={state.fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        onRemove={(file) => removeAttachment(file)}
       />
       <Modal
         visible={state.previewVisible}

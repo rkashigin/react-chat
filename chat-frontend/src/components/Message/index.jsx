@@ -8,7 +8,7 @@ import { EllipsisOutlined, EyeOutlined } from "@ant-design/icons";
 
 import { Time, IconReaded, Avatar } from "../";
 
-import { convertCurrentTime } from "utils/helpers";
+import { convertCurrentTime, isAudio } from "utils/helpers";
 
 import waveWhiteSvg from "assets/img/waveWhite.svg";
 import waveDarkSvg from "assets/img/waveDark.svg";
@@ -32,7 +32,7 @@ const AudioMessage = ({ audioSrc, isMe }) => {
   };
 
   React.useEffect(() => {
-    audioElem.current.volume = "0.1";
+    // audioElem.current.volume = "0.1";
     audioElem.current.addEventListener(
       "playing",
       () => {
@@ -140,20 +140,17 @@ const Message = ({
     }
   };
 
-  const isAudio = () => {
-    const file = attachments[0];
-
-    return attachments.length && file.ext === "webm";
-  };
-
   return (
     <div
       className={classNames("message", {
         "message--isme": isMe,
         "message--is-typing": isTyping,
-        "message--is-audio": isAudio(),
+        "message--is-audio": isAudio(attachments),
         "message--image":
-          !isAudio() && attachments && attachments.length === 1 && !text,
+          !isAudio(attachments) &&
+          attachments &&
+          attachments.length === 1 &&
+          !text,
       })}
     >
       <div className={"message__content"}>

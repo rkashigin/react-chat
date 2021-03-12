@@ -15,11 +15,12 @@ const Messages = ({
   user,
   imagePreview,
   setImagePreview,
+  blockHeight,
 }) => {
   return (
     <div
       className="chat__dialog-messages"
-      style={{ height: "calc(100% - 245px)" }}
+      style={{ height: `calc(100% - ${blockHeight}px)` }}
     >
       <div
         ref={blockRef}

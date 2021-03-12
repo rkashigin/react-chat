@@ -5,6 +5,7 @@ import {
   AudioOutlined,
   SendOutlined,
   CloseOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import { Input, Button } from "antd";
 import { UploadField } from "@navjobs/upload";
@@ -23,13 +24,14 @@ const ChatInput = (props) => {
     toggleEmojiPicker,
     addEmoji,
     handleSendMessage,
-    sendMessage,
     attachments,
     onSelectFiles,
     onRecord,
-    onStopRecording,
     isRecording,
     onHideRecording,
+    sendMessage,
+    isLoading,
+    removeAttachment,
   } = props;
 
   return (
@@ -84,7 +86,13 @@ const ChatInput = (props) => {
             >
               <Button shape="circle" icon={<CameraOutlined />} />
             </UploadField>
-            {isRecording || value || attachments.length ? (
+            {isLoading ? (
+              <Button
+                shape="circle"
+                icon={<LoadingOutlined />}
+                onClick={sendMessage}
+              />
+            ) : isRecording || value || attachments.length ? (
               <Button
                 shape="circle"
                 icon={<SendOutlined />}
@@ -102,9 +110,14 @@ const ChatInput = (props) => {
           </div>
         </div>
       </div>
-      <div className="chat-input__attachments">
-        <UploadFiles attachments={attachments} />
-      </div>
+      {attachments.length > 0 && (
+        <div className="chat-input__attachments">
+          <UploadFiles
+            attachments={attachments}
+            removeAttachment={removeAttachment}
+          />
+        </div>
+      )}
     </>
   );
 };

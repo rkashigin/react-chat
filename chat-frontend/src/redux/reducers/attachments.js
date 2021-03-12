@@ -4,15 +4,15 @@ const initialState = {
 
 const usersReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case "ATTACHMENTS:ADD_FILE":
+    case "ATTACHMENTS:SET_ITEMS":
       return {
         ...state,
-        items: [...state.items, payload],
+        items: payload,
       };
-    case "ATTACHMENTS:REMOVE_FILE":
+    case "ATTACHMENTS:REMOVE_ATTACHMENT":
       return {
         ...state,
-        items: state.items.filter((file) => file._id !== payload),
+        items: state.items.filter((item) => item.uid !== payload.uid),
       };
     default:
       return state;

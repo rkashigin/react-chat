@@ -33,7 +33,7 @@ const Actions = {
       });
   },
   fetchSendMessage: ({ text, dialogId, attachments }) => (dispatch) => {
-    messagesApi.send(text, dialogId, attachments);
+    return messagesApi.send(text, dialogId, attachments);
   },
   removeMessageById: (id) => (dispatch) => {
     if (window.confirm("Are you sure, that you want to delete this message?")) {
