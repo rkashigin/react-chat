@@ -27,24 +27,22 @@ const Messages = ({
           "messages--loading": isLoading,
         })}
       >
-        {isLoading ? (
+        {isLoading && !user ? (
           <Spin size="large" tip="Fetching messages..." />
         ) : items && !isLoading ? (
-          <div>
-            {items.length > 0 ? (
-              items.map((item) => (
-                <Message
-                  key={item._id}
-                  {...item}
-                  isMe={user._id === item.user._id}
-                  onRemoveMessage={onRemoveMessage.bind(this, item._id)}
-                  setImagePreview={setImagePreview}
-                />
-              ))
-            ) : (
-              <Empty description="Current dialog is empty" />
-            )}
-          </div>
+          items.length > 0 ? (
+            items.map((item) => (
+              <Message
+                key={item._id}
+                {...item}
+                isMe={user._id === item.user._id}
+                onRemoveMessage={onRemoveMessage.bind(this, item._id)}
+                setImagePreview={setImagePreview}
+              />
+            ))
+          ) : (
+            <Empty description="Current dialog is empty" />
+          )
         ) : (
           <Empty description="Choose a dialog" />
         )}
