@@ -57,6 +57,10 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
     };
   };
 
+  const onHideRecording = () => {
+    setIsRecording(false);
+  };
+
   const onStopRecording = () => {
     mediaRecorder.stop();
   };
@@ -93,6 +97,7 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
   };
 
   const sendAudio = (audioId) => {
+    onStopRecording();
     fetchSendMessage({
       text: value,
       dialogId: currentDialogId,
@@ -155,6 +160,7 @@ const ChatInput = ({ fetchSendMessage, currentDialogId }) => {
       isRecording={isRecording}
       onStopRecording={onStopRecording}
       onRecord={onRecord}
+      onHideRecording={onHideRecording}
     />
   );
 };

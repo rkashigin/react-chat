@@ -29,6 +29,7 @@ const ChatInput = (props) => {
     onRecord,
     onStopRecording,
     isRecording,
+    onHideRecording,
   } = props;
 
   return (
@@ -58,7 +59,7 @@ const ChatInput = (props) => {
                 className="stop-recording"
                 shape="circle"
                 icon={<CloseOutlined />}
-                onClick={onStopRecording}
+                onClick={onHideRecording}
               />
             </div>
           ) : (

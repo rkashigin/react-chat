@@ -10,23 +10,14 @@ import { Time, IconReaded, Avatar } from "../";
 
 import { convertCurrentTime } from "utils/helpers";
 
-import waveSvg from "assets/img/wave.svg";
+import waveWhiteSvg from "assets/img/waveWhite.svg";
+import waveDarkSvg from "assets/img/waveDark.svg";
 import playSvg from "assets/img/play.svg";
 import pauseSvg from "assets/img/pause.svg";
 
 import "./Message.scss";
-import attachments from "../../redux/reducers/attachments";
 
-const renderAttachments = (attachments) => {
-  if (attachments) {
-    if (attachments.length > 1) {
-    }
-  } else {
-    return null;
-  }
-};
-
-const AudioMessage = ({ audioSrc }) => {
+const AudioMessage = ({ audioSrc, isMe }) => {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
   const [currentTime, setCurrentTime] = React.useState(0);
@@ -80,35 +71,46 @@ const AudioMessage = ({ audioSrc }) => {
   }, []);
 
   return (
-    <div className="message__audio">
-      <audio ref={audioElem} src={audioSrc} preload={"auto"} />
-      <div
-        className="message__audio-progress"
-        style={{ width: progress + "%" }}
-      />
-      <div className="message__audio-info">
-        <div className="message__audio-btn">
-          <button onClick={togglePlay}>
-            {isPlaying ? (
-              <img src={pauseSvg} alt="Pause svg" />
+    <div className={"message__bubble"}>
+      <div className="message__audio">
+        <audio ref={audioElem} src={audioSrc} preload={"auto"} />
+        <div
+          className="message__audio-progress"
+          style={{ width: progress + "%" }}
+        />
+        <div className="message__audio-info">
+          <div className="message__audio-btn">
+            <button onClick={togglePlay}>
+              {isPlaying ? (
+                <img src={pauseSvg} alt="Pause svg" />
+              ) : (
+                <img src={playSvg} alt="PLay svg" />
+              )}
+            </button>
+          </div>
+          <div className="message__audio-wave">
+            {isMe ? (
+              <img src={waveDarkSvg} alt="Wave svg" />
             ) : (
-              <img src={playSvg} alt="PLay svg" />
+              <img src={waveWhiteSvg} alt="Wave svg" />
             )}
-          </button>
+          </div>
+          {isMe ? (
+            <span className="message__audio-duration-me">
+              {convertCurrentTime(currentTime)}
+            </span>
+          ) : (
+            <span className="message__audio-duration">
+              {convertCurrentTime(currentTime)}
+            </span>
+          )}
         </div>
-        <div className="message__audio-wave">
-          <img src={waveSvg} alt="Wave svg" />
-        </div>
-        <span className="message__audio-duration">
-          {convertCurrentTime(currentTime)}
-        </span>
       </div>
     </div>
   );
 };
 
 const Message = ({
-  avatar,
   user,
   text,
   date,
@@ -119,13 +121,39 @@ const Message = ({
   onRemoveMessage,
   setImagePreview,
 }) => {
+  const renderAttachment = (item, isMe) => {
+    if (item.ext !== "webm") {
+      return (
+        <div
+          onClick={() => setImagePreview(item.url)}
+          key={item._id}
+          className="message__attachments-item"
+        >
+          <div className="message__attachments-item-overlay">
+            <EyeOutlined />
+          </div>
+          <img src={item.url} alt={item.fileName} />
+        </div>
+      );
+    } else {
+      return <AudioMessage audioSrc={item.url} isMe={isMe} />;
+    }
+  };
+
+  const isAudio = () => {
+    const file = attachments[0];
+
+    return attachments.length && file.ext === "webm";
+  };
+
   return (
     <div
       className={classNames("message", {
         "message--isme": isMe,
         "message--is-typing": isTyping,
-        // "message--is-audio": audio,
-        "message--image": attachments && attachments.length === 1 && !text,
+        "message--is-audio": isAudio(),
+        "message--image":
+          !isAudio() && attachments && attachments.length === 1 && !text,
       })}
     >
       <div className={"message__content"}>
@@ -162,26 +190,12 @@ const Message = ({
                   <span />
                 </div>
               )}
-              {/*{audio && <AudioMessage audioSrc={audio} />}*/}
             </div>
           )}
 
           {attachments && (
             <div className="message__attachments">
-              {attachments.map((item, index) => {
-                return (
-                  <div
-                    onClick={() => setImagePreview(item.url)}
-                    key={index}
-                    className="message__attachments-item"
-                  >
-                    <div className="message__attachments-item-overlay">
-                      <EyeOutlined />
-                    </div>
-                    <img src={item.url} alt={item.fileName} />
-                  </div>
-                );
-              })}
+              {attachments.map((item) => renderAttachment(item, isMe))}
             </div>
           )}
 

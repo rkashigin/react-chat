@@ -156,11 +156,18 @@
         }
       }
 
-      &-duration {
-        color: #fff;
+      &-duration, &-duration-me {
         font-weight: 500;
         opacity: 0.5;
         font-size: 12px;
+      }
+
+      &-duration {
+        color: #fff;
+      }
+
+      &-duration-me {
+        color: #0F3997;
       }
 
       &-progress {
