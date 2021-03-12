@@ -16,6 +16,8 @@ const Messages = ({
   imagePreview,
   setImagePreview,
   blockHeight,
+  isTyping,
+  partner,
 }) => {
   return (
     <div
@@ -47,6 +49,7 @@ const Messages = ({
         ) : (
           <Empty description="Choose a dialog" />
         )}
+        {isTyping && <Message isTyping={true} user={partner} />}
         <Modal
           visible={!!imagePreview}
           onCancel={() => setImagePreview(null)}

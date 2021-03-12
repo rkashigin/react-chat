@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { filesApi } from "utils/api";
-
 import { ChatInput as BaseChatInput } from "components";
 
 import { messagesActions, attachmentsActions } from "redux/actions";
+import socket from "core/socket";
+
+import { filesApi } from "utils/api";
 
 const ChatInput = (props) => {
   const {
@@ -14,6 +15,7 @@ const ChatInput = (props) => {
     fetchSendMessage,
     setAttachments,
     removeAttachment,
+    user,
   } = props;
 
   window.navigator.getUserMedia =
@@ -118,6 +120,7 @@ const ChatInput = (props) => {
   };
 
   const handleSendMessage = (e) => {
+    socket.emit("DIALOGS:TYPING", { dialogId: currentDialogId, user });
     if (e.keyCode === 13) {
       sendMessage();
     }
@@ -179,7 +182,11 @@ const ChatInput = (props) => {
 };
 
 export default connect(
-  ({ dialogs, attachments }) => ({ dialogs, attachments: attachments.items }),
+  ({ dialogs, attachments, user }) => ({
+    dialogs,
+    attachments: attachments.items,
+    user: user.data,
+  }),
   {
     ...messagesActions,
     ...attachmentsActions,

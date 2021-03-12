@@ -171,7 +171,7 @@ const Message = ({
           <Avatar user={user} />
         </div>
         <div className={"message__info"}>
-          {text && (
+          {(text || isTyping) && (
             <div className={"message__bubble"}>
               {text && (
                 <p className={"message__text"}>
