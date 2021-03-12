@@ -136,7 +136,7 @@ const Message = ({
         </div>
       );
     } else {
-      return <AudioMessage audioSrc={item.url} isMe={isMe} />;
+      return <AudioMessage key={item._id} audioSrc={item.url} isMe={isMe} />;
     }
   };
 
