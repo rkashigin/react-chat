@@ -1,5 +1,5 @@
 # React Chat App
-_Project purpose: learn how to use Socket.io, how to send voice messages and pictures (using Cloudinary)
+_Project purpose: learn how to use Socket.io, how to send voice messages and pictures (using Cloudinary)_
 
 ## Functionality
 + Registration
